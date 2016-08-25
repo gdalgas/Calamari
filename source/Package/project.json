@@ -1,0 +1,22 @@
+{
+  "version": "0.0.0-*",
+  "dependencies": {
+    "GitVersionTask": "3.3.0",
+    "Microsoft.Bcl.Build": "1.0.21",
+    "Calamari.Azure": "*",
+    "Calamari": "*"
+  },
+  "frameworks": {
+    "net450": {
+      "frameworkAssemblies": {
+        "System.Core": "*",
+        "System.Net": "*",
+        "System.Xml.Linq": "*",
+        "System.Data.DataSetExtensions": "*",
+        "Microsoft.CSharp": "*",
+        "System.Data": "*",
+        "System.Xml": "*"
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "version": "0.0.0-*",
+  "dependencies": {
+    "GitVersionTask": "3.3.0",
+    "MarkdownSharp": "1.13.0.0",
+    "Microsoft.Bcl": "1.1.10",
+    "Microsoft.Bcl.Async": "1.0.168",
+    "Microsoft.Bcl.Build": "1.0.21",
+    "Microsoft.Net.Http": "2.2.29",
+    "Microsoft.WindowsAzure.Common": "1.4.1",
+    "Microsoft.WindowsAzure.Common.Dependencies": "1.1.1",
+    "Microsoft.WindowsAzure.Management.Compute": "6.1.2",
+    "Newtonsoft.Json": "7.0.1",
+    "NSubstitute": "1.8.1.0",
+    "NUnit": "2.6.4",
+    "Octostache": "1.0.2.41",
+    "Sprache": "0.0.0.0",
+    "Calamari.Azure": "*",
+    "Calamari.Tests": "*",
+    "Calamari": "*"
+  },
+  "frameworks": {
+    "net45": {
+      "frameworkAssemblies": {
+        "System.Core": "*",
+        "System.Net": "*",
+        "System.Net.Http": "*",
+        "System.Net.Http.WebRequest": "*",
+        "System.Xml.Linq": "*",
+        "System.Data.DataSetExtensions": "*",
+        "Microsoft.CSharp": "*",
+        "System.Data": "*",
+        "System.Xml": "*"
+      }
+    }
+  },
+  "buildOptions": {
+    "embed": {
+      "include": [
+        "CloudServicePackage\\ManifestSchema\\PackageDefinition.xsd"
+      ]
+    }
+  }
+}
