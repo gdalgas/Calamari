@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading;
 using Calamari.Deployment;
 using Calamari.Integration.Retry;
+using Calamari.Util;
+using System.Runtime.InteropServices;
 
 namespace Calamari.Integration.FileSystem
 {
@@ -253,11 +255,11 @@ namespace Calamari.Integration.FileSystem
                 encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false); //UTF8 with no BOM
                 return Encoding.UTF8.GetString(b);
             }
-
             // If all else fails, the encoding is probably (though certainly not definitely) the user's local codepage! 
             // this probably something like Windows 1252 on Windows, but is Encoding.Default is UTF8 on Linux so this probably isn't right in Linux.
-            encoding = Encoding.Default;
-            return Encoding.Default.GetString(b);
+            encoding = CrossPlatform.GetDefaultEncoding();
+
+            return encoding.GetString(b);
         }
 
         public byte[] ReadAllBytes(string path)
@@ -297,9 +299,7 @@ namespace Calamari.Integration.FileSystem
 
         static string GetTempBasePath()
         {
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            path = Path.Combine(path, Assembly.GetEntryAssembly().GetName().Name);
-            path = Path.Combine(path, "Temp");
+            var path = CrossPlatform.GetApplicationTempDir();
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
@@ -378,7 +378,7 @@ namespace Calamari.Integration.FileSystem
             if (!File.Exists(originalFile))
                 File.Copy(temporaryReplacement, originalFile, true);
             else
-                File.Replace(temporaryReplacement, originalFile, backup);
+                CrossPlatform.Replace(temporaryReplacement, originalFile, backup);
 
             File.Delete(temporaryReplacement);
             if (File.Exists(backup))
@@ -537,7 +537,7 @@ namespace Calamari.Integration.FileSystem
         {
             if (!Path.IsPathRooted(relativeOrAbsoluteFilePath))
             {
-                relativeOrAbsoluteFilePath = Path.Combine(Environment.CurrentDirectory, relativeOrAbsoluteFilePath);
+                relativeOrAbsoluteFilePath = Path.Combine(CrossPlatform.GetCurrentDirectory(), relativeOrAbsoluteFilePath);
             }
 
             relativeOrAbsoluteFilePath = Path.GetFullPath(relativeOrAbsoluteFilePath);
