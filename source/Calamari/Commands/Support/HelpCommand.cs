@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using Calamari.Util;
 
 namespace Calamari.Commands.Support
 {
@@ -30,7 +31,7 @@ namespace Calamari.Commands.Support
 
         public int Execute(string[] commandLineArguments)
         {
-            var executable = Path.GetFileNameWithoutExtension(typeof (HelpCommand).Assembly.Location);
+            var executable = Path.GetFileNameWithoutExtension(typeof (HelpCommand).GetAssembly().Location);
 
             var commandName = commandLineArguments.FirstOrDefault();
 

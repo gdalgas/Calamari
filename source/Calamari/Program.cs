@@ -2,6 +2,7 @@
 using System.Linq;
 using Calamari.Commands.Support;
 using Calamari.Integration.Proxies;
+using Calamari.Util;
 
 namespace Calamari
 {
@@ -18,7 +19,7 @@ namespace Calamari
 
         static int Main(string[] args)
         {
-            var program = new Program("Calamari", typeof(Program).Assembly.GetInformationalVersion());
+            var program = new Program("Calamari", typeof(Program).GetAssembly().GetInformationalVersion());
             return program.Execute(args);
         }
 
@@ -46,7 +47,7 @@ namespace Calamari
 
         protected virtual void RegisterCommandAssemblies()
         {
-            CommandLocator.Instance.RegisterAssemblies(typeof(Program).Assembly);
+            CommandLocator.Instance.RegisterAssemblies(typeof(Program).GetAssembly());
         }
 
         private static string GetFirstArgument(string[] args)

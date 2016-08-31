@@ -23,7 +23,7 @@ namespace Calamari.Integration.Scripting.FSharp
             if (!ScriptingEnvironment.IsNet45OrNewer())
                 throw new CommandException("FSharp scripts require requires .NET framework 4.5");
 
-            var myPath = typeof(FSharpEngine).Assembly.Location;
+            var myPath = typeof(FSharpEngine).GetAssembly().Location;
             var parent = Path.GetDirectoryName(myPath);
 
             var attemptOne = Path.GetFullPath(Path.Combine(parent, "FSharp", "fsi.exe"));
@@ -48,7 +48,8 @@ namespace Calamari.Integration.Scripting.FSharp
         {
             var bootstrapFile = Path.Combine(workingDirectory, "Bootstrap." + Guid.NewGuid().ToString().Substring(10) + "." + Path.GetFileName(scriptFilePath));
 
-            using (var writer = new StreamWriter(bootstrapFile, false, Encoding.UTF8))
+            using (var file = new FileStream(configurationFile, FileMode.Create, FileAccess.Write))
+            using (var writer = new StreamWriter(file, Encoding.UTF8))
             {
                 writer.WriteLine("#load \"" + configurationFile.Replace("\\", "\\\\") + "\"");
                 writer.WriteLine("open Octopus");
@@ -68,7 +69,8 @@ namespace Calamari.Integration.Scripting.FSharp
             var builder = new StringBuilder(BootstrapScriptTemplate);
             builder.Replace("{{VariableDeclarations}}", WritePatternMatching(variables));
 
-            using (var writer = new StreamWriter(configurationFile, false, Encoding.UTF8))
+            using (var file = new FileStream(configurationFile, FileMode.Create, FileAccess.Write))
+            using (var writer = new StreamWriter(file, Encoding.UTF8))
             {
                 writer.Write(builder.ToString());
                 writer.Flush();

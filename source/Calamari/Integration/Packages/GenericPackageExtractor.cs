@@ -4,6 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Calamari.Integration.Packages.NuGet;
+#if USE_NUGET_V3_LIBS
+using NuGet.ProjectModel;
+#endif
 
 namespace Calamari.Integration.Packages
 {
@@ -80,7 +83,7 @@ namespace Calamari.Integration.Packages
         {
             return extractors.FirstOrDefault(
                 p => p.Extensions.Any(ext =>
-                    packageFile.EndsWith(ext, StringComparison.InvariantCultureIgnoreCase)));
+                    packageFile.EndsWith(ext, StringComparison.OrdinalIgnoreCase)));
         }
     }
 }

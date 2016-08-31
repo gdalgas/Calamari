@@ -30,7 +30,7 @@ namespace Calamari.Integration.FileSystem
             {
                 using (var file = File.OpenRead(FilePath))
                 {
-                    var hash = new SHA1CryptoServiceProvider().ComputeHash(file);
+                    var hash = SHA1.Create().ComputeHash(file);
                     return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
                 }
             }

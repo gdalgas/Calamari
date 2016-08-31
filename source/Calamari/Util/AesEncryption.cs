@@ -59,7 +59,7 @@ namespace Calamari.Util
 
         Aes GetCryptoProvider(byte[] iv = null)
         {
-#if HAS_CAPI_AES
+#if CAPI_AES
             var provider = new AesCryptoServiceProvider();
 #else
             var provider = Aes.Create();

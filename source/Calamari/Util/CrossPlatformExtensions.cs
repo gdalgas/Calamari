@@ -3,20 +3,12 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using NuGet;
 
 namespace Calamari.Util
 {
     public static class CrossPlatform
     {
-        public static string GetCurrentDirectory()
-        {
-#if USE_SYSTEM_IO_DIRECTORY
-            return System.IO.Directory.GetCurrentDirectory();
-#else
-            return Environment.CurrentDirectory;
-#endif
-        }
-
         public static string GetApplicationTempDir()
         {
 #if NET40
@@ -45,6 +37,42 @@ namespace Calamari.Util
 #else
             File.Move(destinationFileName, destinationBackupFileName);
             File.Move(sourceFileName, destinationFileName);
+#endif
+        }
+
+        public static string GetPackageExtension()
+        {
+#if USE_NUGET_V2_LIBS
+            return Constants.PackageExtension;
+#else
+            return ".nupkg";
+#endif
+        }
+
+        public static string GetManifestExtension()
+        {
+#if USE_NUGET_V2_LIBS
+            return Constants.ManifestExtension;
+#else
+            return ".nuspec";
+#endif
+        }
+
+        public static Assembly GetAssembly(this Type type)
+        {
+#if NET40
+            return type.Assembly;
+#else
+            return type.GetTypeInfo().Assembly;
+#endif
+        }
+
+        public static string GetCurrentDirectory()
+        {
+#if NET40
+            return Environment.CurrentDirectory;
+#else
+            return System.IO.Directory.GetCurrentDirectory();
 #endif
         }
     }

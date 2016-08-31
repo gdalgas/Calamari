@@ -42,7 +42,7 @@
         "System.Spatial": "5.6.2"
       },
       "buildOptions": {
-        "define": [ "NET40", "HAS_SERIALIZABLE_EXCEPTIONS", "HAS_CAPI_AES", "HAS_WEB_ADMIN", "HAS_DEFAULT_ENCODING", "USE_NUGET_V2_LIBS" ]
+        "define": [ "NET40", "HAS_SERIALIZABLE_EXCEPTIONS", "CAPI_AES", "HAS_DEFAULT_ENCODING", "USE_NUGET_V2_LIBS", "IIS_SUPPORT" ]
       }
     },
     "netcoreapp1.0": {
@@ -57,7 +57,6 @@
         "Octopus.Web.XmlTransform": "1.0.0-convert-to-netst0014",
         "NuGet.Commands": "3.5.0-rc1-final",
         "NuGet.Protocol.Core.v3": "3.5.0-rc1-final",
-        "NuGet.Packaging": "3.5.0-rc1-final",
         "Octostache": "2.0.0-dnc0028",
         "ScriptCS": "*",
         "SharpCompress": "0.12.4",
@@ -70,8 +69,11 @@
         "System.Security.Cryptography.Primitives": "4.0.0",
         "System.Runtime": "4.1.0",
         "System.Runtime.InteropServices.RuntimeInformation": "4.0.0",
-        "System.Diagnostics.FileVersionInfo": "4.0.0"
-
+        "System.Diagnostics.FileVersionInfo": "4.0.0",
+        "System.ComponentModel.TypeConverter": "4.1.0",
+        "System.Diagnostics.TraceSource": "4.0.0",
+        "System.Reflection.TypeExtensions": "4.1.0",
+        "System.Net.Requests": "4.0.11"
         //"Microsoft.Web.Administration": "*",
         //"System.Spatial": "*"
       },

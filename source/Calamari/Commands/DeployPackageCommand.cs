@@ -60,7 +60,9 @@ namespace Calamari.Commands
             var configurationTransformer = new ConfigurationTransformer(variables.GetFlag(SpecialVariables.Package.IgnoreConfigTransformationErrors), variables.GetFlag(SpecialVariables.Package.SuppressConfigTransformationLogging));
             var transformFileLocator = new TransformFileLocator(fileSystem);
             var embeddedResources = new CallingAssemblyEmbeddedResources();
+#if IIS_SUPPORT
             var iis = new InternetInformationServer();
+#endif
             var commandLineRunner = new CommandLineRunner(new SplitCommandOutput(new ConsoleCommandOutput(), new ServiceMessageCommandOutput(variables)));
             var semaphore = new SystemSemaphore();
             var journal = new DeploymentJournal(fileSystem, semaphore, variables);
@@ -85,7 +87,9 @@ namespace Calamari.Commands
                 new PackagedScriptConvention(DeploymentStages.Deploy, fileSystem, scriptCapability, commandLineRunner),
                 new ConfiguredScriptConvention(DeploymentStages.Deploy, scriptCapability, fileSystem, commandLineRunner),
                 new FeatureScriptConvention(DeploymentStages.AfterDeploy, fileSystem, embeddedResources, scriptCapability, commandLineRunner),
+#if IIS_SUPPORT
                 new LegacyIisWebSiteConvention(fileSystem, iis),
+#endif
                 new FeatureScriptConvention(DeploymentStages.BeforePostDeploy, fileSystem, embeddedResources, scriptCapability, commandLineRunner),
                 new PackagedScriptConvention(DeploymentStages.PostDeploy, fileSystem, scriptCapability, commandLineRunner),
                 new ConfiguredScriptConvention(DeploymentStages.PostDeploy, scriptCapability, fileSystem, commandLineRunner),

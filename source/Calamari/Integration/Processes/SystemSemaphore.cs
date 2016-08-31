@@ -37,7 +37,8 @@ namespace Calamari.Integration.Processes
             semaphoreSecurity.AddAccessRule(rule);
             bool createdNew;
 
-            var semaphore = new Semaphore(1, 1, name, out createdNew, semaphoreSecurity);
+            var semaphore = new Semaphore(1, 1, name, out createdNew);
+            semaphore.SetAccessControl(semaphoreSecurity);
             return semaphore;
         }
 

@@ -23,7 +23,7 @@ namespace Calamari.Integration.Scripting.ScriptCS
             if (!ScriptingEnvironment.IsNet45OrNewer())
                 throw new CommandException("ScriptCS scripts require the Roslyn CTP, which requires .NET framework 4.5");
 
-            var myPath = typeof(ScriptCSScriptEngine).Assembly.Location;
+            var myPath = typeof(ScriptCSScriptEngine).GetAssembly().Location;
             var parent = Path.GetDirectoryName(myPath);
 
             var attemptOne = Path.GetFullPath(Path.Combine(parent, "ScriptCS", "scriptcs.exe"));
@@ -58,7 +58,8 @@ namespace Calamari.Integration.Scripting.ScriptCS
         {
             var bootstrapFile = Path.Combine(workingDirectory, "Bootstrap." + Guid.NewGuid().ToString().Substring(10) + "." + Path.GetFileName(scriptFilePath));
 
-            using (var writer = new StreamWriter(bootstrapFile, false, Encoding.UTF8))
+            using (var file = new FileStream(configurationFile, FileMode.Create, FileAccess.Write))
+            using (var writer = new StreamWriter(file, Encoding.UTF8))
             {
                 writer.WriteLine("#load \"" + configurationFile.Replace("\\", "\\\\") + "\"");
                 writer.WriteLine("#load \"" + scriptFilePath.Replace("\\", "\\\\") + "\"");
@@ -76,7 +77,8 @@ namespace Calamari.Integration.Scripting.ScriptCS
             var builder = new StringBuilder(BootstrapScriptTemplate);
             builder.Replace("{{VariableDeclarations}}", WriteVariableDictionary(variables));
 
-            using (var writer = new StreamWriter(configurationFile, false, Encoding.UTF8))
+            using (var file = new FileStream(configurationFile, FileMode.Create, FileAccess.Write))
+            using (var writer = new StreamWriter(file, Encoding.UTF8))
             {
                 writer.Write(builder.ToString());
                 writer.Flush();

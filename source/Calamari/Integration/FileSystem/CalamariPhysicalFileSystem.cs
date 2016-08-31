@@ -537,7 +537,7 @@ namespace Calamari.Integration.FileSystem
         {
             if (!Path.IsPathRooted(relativeOrAbsoluteFilePath))
             {
-                relativeOrAbsoluteFilePath = Path.Combine(CrossPlatform.GetCurrentDirectory(), relativeOrAbsoluteFilePath);
+                relativeOrAbsoluteFilePath = Path.Combine(Directory.GetCurrentDirectory(), relativeOrAbsoluteFilePath);
             }
 
             relativeOrAbsoluteFilePath = Path.GetFullPath(relativeOrAbsoluteFilePath);
