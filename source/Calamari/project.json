@@ -42,7 +42,7 @@
         "System.Spatial": "5.6.2"
       },
       "buildOptions": {
-        "define": [ "NET40", "HAS_SERIALIZABLE_EXCEPTIONS", "HAS_CAPI_AES", "HAS_WEB_ADMIN", "HAS_DEFAULT_ENCODING" ]
+        "define": [ "NET40", "HAS_SERIALIZABLE_EXCEPTIONS", "HAS_CAPI_AES", "HAS_WEB_ADMIN", "HAS_DEFAULT_ENCODING", "USE_NUGET_V2_LIBS" ]
       }
     },
     "netcoreapp1.0": {
@@ -55,8 +55,9 @@
         //"Microsoft.Net.Http": "*",
         //"Microsoft.Web.Deployment": "*",
         "Octopus.Web.XmlTransform": "1.0.0-convert-to-netst0014",
-        "NuGet.CommandLine": "*",
-        // "NuGet.Core": "2.13.0-rc1-final",
+        "NuGet.Commands": "3.5.0-rc1-final",
+        "NuGet.Protocol.Core.v3": "3.5.0-rc1-final",
+        "NuGet.Packaging": "3.5.0-rc1-final",
         "Octostache": "2.0.0-dnc0028",
         "ScriptCS": "*",
         "SharpCompress": "0.12.4",
@@ -68,15 +69,14 @@
         "System.Threading.AccessControl": "4.0.0",
         "System.Security.Cryptography.Primitives": "4.0.0",
         "System.Runtime": "4.1.0",
-        "Nuget.Packaging": "3.5.0-beta2-1484",
         "System.Runtime.InteropServices.RuntimeInformation": "4.0.0",
-        "System.Diagnostics.FileVersionInfo":  "4.0.0" 
+        "System.Diagnostics.FileVersionInfo": "4.0.0"
 
         //"Microsoft.Web.Administration": "*",
         //"System.Spatial": "*"
       },
       "buildOptions": {
-        "define": [ "USE_OCTOPUS_XMLT", "USE_SYSTEM_IO_DIRECTORY" ]
+        "define": [ "USE_OCTOPUS_XMLT", "USE_SYSTEM_IO_DIRECTORY", "USE_NUGET_V3_LIBS" ]
       }
     }
   },

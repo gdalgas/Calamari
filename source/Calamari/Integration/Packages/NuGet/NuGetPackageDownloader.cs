@@ -25,7 +25,7 @@ namespace Calamari.Integration.Packages.NuGet
                     {
                         NuGetFileSystemDownloader.DownloadPackage(packageId, version, feedUri, targetFilePath);
                     }
-
+#if USE_NUGET_V2_LIBS
                     // NuGet V3 feed 
                     else if (IsHttp(feedUri.ToString()) && feedUri.ToString().EndsWith(".json", StringComparison.OrdinalIgnoreCase))
                     {
@@ -37,6 +37,12 @@ namespace Calamari.Integration.Packages.NuGet
                     {
                         NuGetV2Downloader.DownloadPackage(packageId, version.ToString(), feedUri, feedCredentials, targetFilePath);
                     }
+#else
+                    else
+                    {
+                        NuGetV3LibDownloader.DownloadPackage(packageId, version, feedUri, feedCredentials, targetFilePath);
+                    }
+#endif
 
                     return;
                 }
