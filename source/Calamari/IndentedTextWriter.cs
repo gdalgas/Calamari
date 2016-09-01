@@ -489,7 +489,6 @@ namespace Calamari
         /// <devdoc>
         ///    <para>[To be supplied.]</para>
         /// </devdoc>
-        [CLSCompliant(false)]
         public override void WriteLine(UInt32 value)
         {
             OutputTabs();
