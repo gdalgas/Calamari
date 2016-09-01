@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using ApprovalTests;
 using Calamari.Integration.ServiceMessages;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
+#if APPROVAL_TESTS
+using ApprovalTests;
+#endif
 
 namespace Calamari.Tests.Helpers
 {
@@ -161,9 +163,11 @@ namespace Calamari.Tests.Helpers
             Assert.That(allOutput.IndexOf(expectedOutput, StringComparison.OrdinalIgnoreCase) >= 0, string.Format("Expected to find: {0}. Output:\r\n{1}", expectedOutput, allOutput));
         }
 
+#if APPROVAL_TESTS
         public void ApproveOutput()
         {
             Approvals.Verify(captured.ToApprovalString());
         }
+#endif
     }
 }

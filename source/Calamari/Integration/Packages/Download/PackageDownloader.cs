@@ -8,7 +8,6 @@ using Calamari.Util;
 using NuGet.Versioning;
 #if USE_NUGET_V3_LIBS
 using NuGet.Packaging;
-using NuGet.ProjectModel;
 #else
 using NuGet;
 #endif

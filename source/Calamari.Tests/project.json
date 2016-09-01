@@ -1,25 +1,10 @@
 {
   "version": "0.0.0-*",
   "dependencies": {
-    "ApprovalTests": "3.0.11",
-    "ApprovalUtilities": "3.0.11",
-    "FluentAssertions": "4.9.1",
-    "GitVersionTask": "3.3.0",
-    "MarkdownSharp": "1.13.0.0",
-    "Microsoft.Bcl": "1.1.9",
-    "Microsoft.Bcl.Async": "1.0.168",
-    "Microsoft.Bcl.Build": "1.0.14",
-    "Microsoft.Net.Http": "2.2.22",
-    "Microsoft.Web.Administration": "7.0.0.0",
-    "Microsoft.Web.Deployment": "3.6.0",
-    "Microsoft.Web.Xdt": "2.1.1",
-    "Newtonsoft.Json": "6.0.8",
-    "NSubstitute": "1.8.1.0",
-    "NUnit": "2.6.4",
-    "Octostache": "1.0.2.41",
-    "SharpCompress": "0.12.4",
-    "Sprache": "2.0.0.45",
-    "Calamari": "*"
+    "Calamari": "*",
+    "NSubstitute": "2.0.0-rc",
+    "NUnit": "3.4.1",
+    "FluentAssertions": "4.13.1"
   },
   "frameworks": {
     "net40": {
@@ -33,6 +18,43 @@
         "System.Data": "*",
         "System.Xml": "*",
         "WindowsBase": "*"
+      },
+      "dependencies": {
+        "ApprovalTests": "3.0.11",
+        "ApprovalUtilities": "3.0.11",
+        "GitVersionTask": "3.3.0",
+        "MarkdownSharp": "1.13.0.0",
+        "Microsoft.Bcl": "1.1.9",
+        "Microsoft.Bcl.Async": "1.0.168",
+        "Microsoft.Bcl.Build": "1.0.14",
+        "Microsoft.Net.Http": "2.2.22",
+        "Microsoft.Web.Administration": "7.0.0.0",
+        "Microsoft.Web.Deployment": "3.6.0",
+        "Microsoft.Web.Xdt": "2.1.1",
+        "Newtonsoft.Json": "6.0.8",
+        "Octostache": "1.0.2.41",
+        "SharpCompress": "0.12.4",
+        "Sprache": "2.0.0.45"
+      },
+      "buildOptions": {
+        "define": [ "NET40", "IIS_SUPPORT", "APPROVAL_TESTS" ]
+      }
+    },
+    "netcoreapp1.0": {
+      "imports": "portable-net45+win8",
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "version": "1.0.0-*",
+          "type": "platform"
+        },
+        "Markdown": "2.1.0",
+        "Newtonsoft.Json": "9.0.1",
+        "Octopus.Web.XmlTransform": "1.0.0-convert-to-netst0014",
+        "Octostache": "2.0.0-dnc0028",
+        "SharpCompress": "0.12.4",
+        "Sprache": "2.1.0",
+        "System.IO.Packaging": "4.0.0",
+        "System.ServiceProcess.ServiceController": "4.1.0" 
       }
     }
   },

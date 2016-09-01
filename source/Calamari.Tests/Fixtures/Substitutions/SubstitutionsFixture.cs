@@ -5,6 +5,7 @@ using Calamari.Deployment;
 using Calamari.Integration.FileSystem;
 using Calamari.Integration.Substitutions;
 using Calamari.Tests.Helpers;
+using Calamari.Util;
 using NUnit.Framework;
 using Octostache;
 
@@ -127,7 +128,7 @@ namespace Calamari.Tests.Fixtures.Substitutions
 
             Encoding encoding;
             FileSystem.ReadFile(filePath, out encoding);
-            Assert.AreEqual(Encoding.Default, encoding);
+            Assert.AreEqual(CrossPlatform.GetDefaultEncoding(), encoding);
         }
 
         [Test]
@@ -141,8 +142,8 @@ namespace Calamari.Tests.Fixtures.Substitutions
 
             Encoding encoding;
             FileSystem.ReadFile(filePath, out encoding);
-            Assert.AreEqual(Encoding.Default, encoding);
-            Assert.AreEqual(Encoding.Default, result.Encoding);
+            Assert.AreEqual(CrossPlatform.GetDefaultEncoding(), encoding);
+            Assert.AreEqual(CrossPlatform.GetDefaultEncoding(), result.Encoding);
         }
 
         [Test]

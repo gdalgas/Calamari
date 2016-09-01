@@ -4,9 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Calamari.Integration.Packages.NuGet;
-#if USE_NUGET_V3_LIBS
-using NuGet.ProjectModel;
-#endif
 
 namespace Calamari.Integration.Packages
 {

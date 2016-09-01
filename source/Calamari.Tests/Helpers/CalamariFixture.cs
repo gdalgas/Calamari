@@ -1,21 +1,27 @@
 using System;
 using System.IO;
-using ApprovalTests.Namers;
-using ApprovalTests.Reporters;
 using Calamari.Commands;
 using Calamari.Integration.Processes;
 using Calamari.Integration.ServiceMessages;
+using Calamari.Util;
 using Octostache;
+using System.Reflection;
+#if APPROVAL_TESTS
+using ApprovalTests.Namers;
+using ApprovalTests.Reporters;
+#endif
 
 namespace Calamari.Tests.Helpers
 {
+#if APPROVAL_TESTS
     [UseReporter(typeof(DiffReporter))]
     [UseApprovalSubdirectory("Approved")]
+#endif
     public abstract class CalamariFixture
     {
         protected CommandLine Calamari()
         {
-            var calamariFullPath = typeof (DeployPackageCommand).Assembly.FullLocalPath();
+            var calamariFullPath = typeof (DeployPackageCommand).GetTypeInfo().Assembly.FullLocalPath();
             var calamariConfigFilePath = calamariFullPath + ".config";
             if (!File.Exists(calamariConfigFilePath))
                 throw new FileNotFoundException($"Unable to find {calamariConfigFilePath} which means the config file would not have been included in testing {calamariFullPath}");

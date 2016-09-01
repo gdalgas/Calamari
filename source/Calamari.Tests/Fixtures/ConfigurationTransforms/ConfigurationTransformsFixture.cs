@@ -3,6 +3,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Calamari.Integration.ConfigurationTransforms;
 using Calamari.Integration.FileSystem;
+using Calamari.Tests.Fixtures.Util;
 using Calamari.Tests.Helpers;
 using FluentAssertions;
 using NUnit.Framework;

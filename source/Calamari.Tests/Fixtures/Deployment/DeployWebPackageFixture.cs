@@ -176,6 +176,7 @@ namespace Calamari.Tests.Fixtures.Deployment
             result.AssertOutput("Hello World!");
         }
 
+#if IIS_SUPPORT
         [Test]
         [Category(TestEnvironment.CompatibleOS.Windows)]
         public void ShouldModifyIisWebsiteRoot()
@@ -202,6 +203,7 @@ namespace Calamari.Tests.Fixtures.Deployment
             webServer.DeleteWebSite(siteName);
             FileSystem.DeleteDirectory(originalWebRootPath);
         }
+#endif
 
         [Test]
         public void ShouldRunConfiguredScripts()
