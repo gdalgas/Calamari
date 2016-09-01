@@ -4,6 +4,7 @@ using System.Text;
 using Calamari.Commands.Support;
 using Calamari.Integration.Processes;
 using Calamari.Util;
+using System.Reflection;
 
 namespace Calamari.Integration.Scripting.ScriptCS
 {
@@ -23,7 +24,7 @@ namespace Calamari.Integration.Scripting.ScriptCS
             if (!ScriptingEnvironment.IsNet45OrNewer())
                 throw new CommandException("ScriptCS scripts require the Roslyn CTP, which requires .NET framework 4.5");
 
-            var myPath = typeof(ScriptCSScriptEngine).GetAssembly().Location;
+            var myPath = typeof(ScriptCSScriptEngine).GetTypeInfo().Assembly.Location;
             var parent = Path.GetDirectoryName(myPath);
 
             var attemptOne = Path.GetFullPath(Path.Combine(parent, "ScriptCS", "scriptcs.exe"));

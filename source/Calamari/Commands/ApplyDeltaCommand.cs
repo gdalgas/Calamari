@@ -5,6 +5,8 @@ using Calamari.Integration.FileSystem;
 using Calamari.Integration.Packages;
 using Calamari.Integration.Processes;
 using Calamari.Integration.ServiceMessages;
+using Calamari.Util;
+using System.Reflection;
 
 namespace Calamari.Commands
 {
@@ -120,7 +122,7 @@ namespace Calamari.Commands
 
         string FindOctoDiffExecutable()
         {
-            var basePath = Path.GetDirectoryName(GetType().Assembly.Location);
+            var basePath = Path.GetDirectoryName(GetType().GetTypeInfo().Assembly.Location);
             var exePath = Path.Combine(basePath, "Octodiff.exe");
             if (!File.Exists(exePath))
                 throw new CommandException("Unable to find Octodiff.exe in " + basePath);

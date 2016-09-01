@@ -39,7 +39,7 @@ namespace Calamari.Integration.JsonVariables
 
         static void SaveJson(string jsonFilePath, JObject root)
         {
-            using (var file = new FileStream(jsonFilePath, FileMode.OpenOrCreate, FileAccess.Write))
+            using (var file = new FileStream(jsonFilePath, FileMode.Create, FileAccess.Write))
             using (var writer = new StreamWriter(file))
             using (var json = new JsonTextWriter(writer))
             {

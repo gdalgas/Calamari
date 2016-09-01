@@ -58,22 +58,100 @@ namespace Calamari.Util
 #endif
         }
 
-        public static Assembly GetAssembly(this Type type)
-        {
 #if NET40
-            return type.Assembly;
-#else
-            return type.GetTypeInfo().Assembly;
-#endif
+        public static Type GetTypeInfo(this Type type)
+        {
+            return type;
         }
+#endif
 
         public static string GetCurrentDirectory()
         {
 #if NET40
             return Environment.CurrentDirectory;
 #else
-            return System.IO.Directory.GetCurrentDirectory();
+            return Directory.GetCurrentDirectory();
 #endif
+        }
+
+        public static string GetCommonApplicationDataFolderPath()
+        {
+#if NET40
+            return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+#else
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return Environment.GetEnvironmentVariable("PROGRAMDATA") ?? "C:\\ProgramData";
+            }
+            else
+            {
+                return "/usr/share"; //based on what mono does
+            }
+#endif
+        }
+
+        public static string GetApplicationDataFolderPath()
+        {
+#if NET40
+            return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+#else
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                var appdata = Environment.GetEnvironmentVariable("APPDATA");
+                if(appdata != null) return appdata;
+
+                var home = Environment.GetEnvironmentVariable("USERPROFILE");
+                return Path.Combine(home, "AppData", "Roaming");
+            }
+            else
+            {
+                //based on what mono does
+                var home = Environment.GetEnvironmentVariable("HOME");
+                return Path.Combine(home, ".config");
+            }
+#endif
+        }
+
+        public static string GetSystemFolderPath()
+        {
+#if NET40
+            return Environment.GetFolderPath(Environment.SpecialFolder.System);
+#else
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                var system = Environment.GetEnvironmentVariable("SYSTEMROOT") ?? "C:\\Windows";
+                return Path.Combine(system, "System32");
+            }
+            else
+            {
+                return "/usr/bin"; //does not make much sense in nix
+            }
+#endif
+        }
+
+        public static string GetUserDomainName()
+        {
+#if NET40
+            return Environment.UserDomainName;
+#else
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return Environment.GetEnvironmentVariable("USERDOMAIN");
+            }
+            else
+            {
+                return Environment.GetEnvironmentVariable("HOSTNAME"); // seems as usefull as anything
+            }
+#endif            
+        }
+
+        public static string GetUserName()
+        {
+#if NET40
+            return Environment.UserName;
+#else
+            return Environment.GetEnvironmentVariable("USERNAME") ?? Environment.GetEnvironmentVariable("USER");
+#endif                
         }
     }
 }

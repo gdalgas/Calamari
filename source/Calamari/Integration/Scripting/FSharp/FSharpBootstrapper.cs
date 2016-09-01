@@ -4,6 +4,7 @@ using System.Text;
 using Calamari.Commands.Support;
 using Calamari.Integration.Processes;
 using Calamari.Util;
+using System.Reflection;
 
 namespace Calamari.Integration.Scripting.FSharp
 {
@@ -23,7 +24,7 @@ namespace Calamari.Integration.Scripting.FSharp
             if (!ScriptingEnvironment.IsNet45OrNewer())
                 throw new CommandException("FSharp scripts require requires .NET framework 4.5");
 
-            var myPath = typeof(FSharpEngine).GetAssembly().Location;
+            var myPath = typeof(FSharpEngine).GetTypeInfo().Assembly.Location;
             var parent = Path.GetDirectoryName(myPath);
 
             var attemptOne = Path.GetFullPath(Path.Combine(parent, "FSharp", "fsi.exe"));

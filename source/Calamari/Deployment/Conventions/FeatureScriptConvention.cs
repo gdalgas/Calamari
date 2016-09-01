@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Calamari.Commands.Support;
-using Calamari.Integration.EmbeddedResources;
 using Calamari.Integration.FileSystem;
 using Calamari.Integration.Processes;
 using Calamari.Integration.Scripting;
+using Calamari.Integration.EmbeddedResources;
+using Calamari.Util;
 
 namespace Calamari.Deployment.Conventions
 {
@@ -13,17 +15,14 @@ namespace Calamari.Deployment.Conventions
     {
         readonly string deploymentStage;
         readonly ICalamariFileSystem fileSystem;
-        readonly ICalamariEmbeddedResources embeddedResources;
         readonly IScriptEngine scriptEngine;
         readonly ICommandLineRunner commandLineRunner;
         const string scriptResourcePrefix = "Calamari.Scripts.";
 
-        public FeatureScriptConvention(string deploymentStage, ICalamariFileSystem fileSystem, ICalamariEmbeddedResources embeddedResources, 
-            IScriptEngine scriptEngine, ICommandLineRunner commandLineRunner)
+        public FeatureScriptConvention(string deploymentStage, ICalamariFileSystem fileSystem, IScriptEngine scriptEngine, ICommandLineRunner commandLineRunner)
         {
             this.deploymentStage = deploymentStage;
             this.fileSystem = fileSystem;
-            this.embeddedResources = embeddedResources;
             this.scriptEngine = scriptEngine;
             this.commandLineRunner = commandLineRunner;
         }
@@ -35,7 +34,7 @@ namespace Calamari.Deployment.Conventions
             if (!features.Any())
                 return;
 
-            var embeddedResourceNames = new HashSet<string>(embeddedResources.GetEmbeddedResourceNames());
+            var embeddedResourceNames = new HashSet<string>(typeof(FeatureScriptConvention).GetTypeInfo().Assembly.GetEmbeddedResourceNames());
 
             foreach (var featureScript in features.SelectMany(GetScriptNames))
             {
@@ -54,7 +53,7 @@ namespace Calamari.Deployment.Conventions
                 if (!fileSystem.FileExists(scriptFile))
                 {
                     Log.VerboseFormat("Creating '{0}' from embedded resource", scriptFile);
-                    fileSystem.OverwriteFile(scriptFile, embeddedResources.GetEmbeddedResourceText(scriptEmbeddedResource));
+                    fileSystem.OverwriteFile(scriptFile, typeof(FeatureScriptConvention).GetTypeInfo().Assembly.GetEmbeddedResourceText(scriptEmbeddedResource));
                 }
                 else
                 {
