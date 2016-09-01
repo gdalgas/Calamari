@@ -16,7 +16,6 @@ namespace Calamari.Azure.Integration
     {
         readonly ICalamariFileSystem fileSystem;
         readonly ICertificateStore certificateStore;
-        readonly ICalamariEmbeddedResources embeddedResources;
 
         const string CertificateFileName = "azure_certificate.pfx";
         const int PasswordSizeBytes = 20;
@@ -27,7 +26,6 @@ namespace Calamari.Azure.Integration
         {
             this.fileSystem = new WindowsPhysicalFileSystem();
             this.certificateStore = new CalamariCertificateStore();
-            this.embeddedResources = new CallingAssemblyEmbeddedResources();
         }
 
         public CommandResult ExecuteScript(IScriptEngine scriptEngine, Script script, CalamariVariableDictionary variables, ICommandLineRunner commandLineRunner)
@@ -73,7 +71,7 @@ namespace Calamari.Azure.Integration
         string CreateContextScriptFile(string workingDirectory)
         {
             var azureContextScriptFile = Path.Combine(workingDirectory, "Octopus.AzureContext.ps1");
-            var contextScript = embeddedResources.GetEmbeddedResourceText("Calamari.Azure.Scripts.AzureContext.ps1");
+            var contextScript = typeof(AzurePowerShellContext).Assembly.GetEmbeddedResourceText("Calamari.Azure.Scripts.AzureContext.ps1");
             fileSystem.OverwriteFile(azureContextScriptFile, contextScript);
             return azureContextScriptFile;
         }

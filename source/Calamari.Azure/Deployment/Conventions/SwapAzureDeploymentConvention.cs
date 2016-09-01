@@ -12,17 +12,14 @@ namespace Calamari.Azure.Deployment.Conventions
     public class SwapAzureDeploymentConvention : IInstallConvention
     {
         readonly ICalamariFileSystem fileSystem;
-        readonly ICalamariEmbeddedResources embeddedResources;
         readonly IScriptEngine scriptEngine;
         readonly ICommandLineRunner commandLineRunner;
 
         public SwapAzureDeploymentConvention(ICalamariFileSystem fileSystem,
-            ICalamariEmbeddedResources embeddedResources,
             IScriptEngine scriptEngine,
             ICommandLineRunner commandLineRunner)
         {
             this.fileSystem = fileSystem;
-            this.embeddedResources = embeddedResources;
             this.scriptEngine = scriptEngine;
             this.commandLineRunner = commandLineRunner;
         }
@@ -41,7 +38,7 @@ namespace Calamari.Azure.Deployment.Conventions
             // The user may supply the script, to override behaviour
             if (!fileSystem.FileExists(scriptFile))
             {
-                fileSystem.OverwriteFile(scriptFile, embeddedResources.GetEmbeddedResourceText("Calamari.Azure.Scripts.SwapAzureCloudServiceDeployment.ps1"));
+                fileSystem.OverwriteFile(scriptFile, typeof(SwapAzureDeploymentConvention).Assembly.GetEmbeddedResourceText("Calamari.Azure.Scripts.SwapAzureCloudServiceDeployment.ps1"));
             }
 
             var result = scriptEngine.Execute(new Script(scriptFile), deployment.Variables, commandLineRunner);
