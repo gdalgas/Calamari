@@ -51,6 +51,7 @@ namespace Calamari.Azure.Commands
             var variables = new CalamariVariableDictionary(variablesFile, sensitiveVariablesFile, sensitiveVariablesPassword);
 
             var fileSystem = new WindowsPhysicalFileSystem();
+            var embeddedResources = new AssemblyEmbeddedResources();
             var scriptEngine = new CombinedScriptEngine();
             var commandLineRunner = new CommandLineRunner(new SplitCommandOutput(new ConsoleCommandOutput(), new ServiceMessageCommandOutput(variables)));
             var azurePackageUploader = new AzurePackageUploader();
@@ -67,7 +68,7 @@ namespace Calamari.Azure.Commands
             {
                 new ContributeEnvironmentVariablesConvention(),
                 new LogVariablesConvention(),
-                new SwapAzureDeploymentConvention(fileSystem, scriptEngine, commandLineRunner),
+                new SwapAzureDeploymentConvention(fileSystem, embeddedResources, scriptEngine, commandLineRunner),
                 new ExtractPackageToStagingDirectoryConvention(new GenericPackageExtractor(), fileSystem),
                 new FindCloudServicePackageConvention(fileSystem),
                 new EnsureCloudServicePackageIsCtpFormatConvention(fileSystem),
@@ -84,7 +85,7 @@ namespace Calamari.Azure.Commands
                 new ConfiguredScriptConvention(DeploymentStages.Deploy, fileSystem, scriptEngine, commandLineRunner),
                 new RePackageCloudServiceConvention(fileSystem),
                 new UploadAzureCloudServicePackageConvention(fileSystem, azurePackageUploader, cloudCredentialsFactory),
-                new DeployAzureCloudServicePackageConvention(fileSystem, scriptEngine, commandLineRunner),
+                new DeployAzureCloudServicePackageConvention(fileSystem, embeddedResources, scriptEngine, commandLineRunner),
                 new PackagedScriptConvention(DeploymentStages.PostDeploy, fileSystem, scriptEngine, commandLineRunner),
                 new ConfiguredScriptConvention(DeploymentStages.PostDeploy, fileSystem, scriptEngine, commandLineRunner),
             };

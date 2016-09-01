@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Reflection;
 using Calamari.Commands.Support;
 using Calamari.Deployment;
 using Calamari.Deployment.Conventions;
@@ -12,12 +14,15 @@ namespace Calamari.Azure.Deployment.Conventions
     public class DeployAzureCloudServicePackageConvention : IInstallConvention
     {
         readonly ICalamariFileSystem fileSystem;
+        readonly ICalamariEmbeddedResources embeddedResources;
         readonly IScriptEngine scriptEngine;
         readonly ICommandLineRunner commandLineRunner;
 
-        public DeployAzureCloudServicePackageConvention(ICalamariFileSystem fileSystem, IScriptEngine scriptEngine, ICommandLineRunner commandLineRunner)
+        public DeployAzureCloudServicePackageConvention(ICalamariFileSystem fileSystem, ICalamariEmbeddedResources embeddedResources, 
+            IScriptEngine scriptEngine, ICommandLineRunner commandLineRunner)
         {
             this.fileSystem = fileSystem;
+            this.embeddedResources = embeddedResources;
             this.scriptEngine = scriptEngine;
             this.commandLineRunner = commandLineRunner;
         }
@@ -43,7 +48,7 @@ namespace Calamari.Azure.Deployment.Conventions
             // The user may supply the script, to override behaviour
             if (!fileSystem.FileExists(scriptFile))
             {
-               fileSystem.OverwriteFile(scriptFile, typeof(DeployAzureCloudServicePackageConvention).Assembly.GetEmbeddedResourceText("Calamari.Azure.Scripts.DeployAzureCloudService.ps1")); 
+               fileSystem.OverwriteFile(scriptFile, embeddedResources.GetEmbeddedResourceText(Assembly.GetExecutingAssembly(), "Calamari.Azure.Scripts.DeployAzureCloudService.ps1")); 
             }
 
             var result = scriptEngine.Execute(new Script(scriptFile), deployment.Variables, commandLineRunner);
