@@ -3,7 +3,6 @@ using System.IO;
 using Calamari.Commands;
 using Calamari.Integration.Processes;
 using Calamari.Integration.ServiceMessages;
-using Calamari.Util;
 using Octostache;
 using System.Reflection;
 #if APPROVAL_TESTS

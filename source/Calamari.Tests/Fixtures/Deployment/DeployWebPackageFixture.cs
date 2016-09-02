@@ -27,7 +27,7 @@ namespace Calamari.Tests.Fixtures.Deployment
             base.SetUp();
         }
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void Init()
         {
             nupkgFile = new TemporaryFile(PackageBuilder.BuildSamplePackage("Acme.Web", "1.0.0"));
@@ -35,7 +35,7 @@ namespace Calamari.Tests.Fixtures.Deployment
         }
 
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void Dispose()
         {
             nupkgFile.Dispose();

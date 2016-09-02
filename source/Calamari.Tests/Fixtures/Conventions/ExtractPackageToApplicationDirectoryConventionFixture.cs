@@ -83,7 +83,7 @@ namespace Calamari.Tests.Fixtures.Conventions
             
             convention.Install(new RunningDeployment(PackageLocation, variables));
 
-            Assert.That(variables.Get("OctopusOriginalPackageDirectoryPath"),Is.StringEnding(Path.Combine("Acme.Web", "1.0.0")));
+            Assert.That(variables.Get("OctopusOriginalPackageDirectoryPath"), Does.EndWith(Path.Combine("Acme.Web", "1.0.0")));
         }
 
 
@@ -99,7 +99,7 @@ namespace Calamari.Tests.Fixtures.Conventions
 
             convention.Install(new RunningDeployment(PackageLocation, variables));
 
-            Assert.That(variables.Get("OctopusOriginalPackageDirectoryPath"), Is.StringEnding(Path.Combine("Acme.Web", "1.0.0_3")));
+            Assert.That(variables.Get("OctopusOriginalPackageDirectoryPath"), Does.EndWith(Path.Combine("Acme.Web", "1.0.0_3")));
             
         }
         
@@ -112,7 +112,7 @@ namespace Calamari.Tests.Fixtures.Conventions
 
             convention.Install(new RunningDeployment(PackageLocation, variables));
 
-            Assert.That(variables.Get("OctopusOriginalPackageDirectoryPath"), Is.StringEnding(Path.Combine("Production","Acme.Web","1.0.0")));
+            Assert.That(variables.Get("OctopusOriginalPackageDirectoryPath"), Does.EndWith(Path.Combine("Production","Acme.Web","1.0.0")));
         }
 
         [Test]
@@ -124,7 +124,7 @@ namespace Calamari.Tests.Fixtures.Conventions
 
             convention.Install(new RunningDeployment(PackageLocation, variables));
 
-            Assert.That(variables.Get("OctopusOriginalPackageDirectoryPath"), Is.StringEnding(Path.Combine("MegaCorp", "Production", "Acme.Web", "1.0.0")));
+            Assert.That(variables.Get("OctopusOriginalPackageDirectoryPath"), Does.EndWith(Path.Combine("MegaCorp", "Production", "Acme.Web", "1.0.0")));
         }
 
 
@@ -136,7 +136,7 @@ namespace Calamari.Tests.Fixtures.Conventions
 
             convention.Install(new RunningDeployment(PackageLocation, variables));
 
-            Assert.That(variables.Get("OctopusOriginalPackageDirectoryPath"), Is.StringEnding(Path.Combine("Production Tokyo","Acme.Web","1.0.0")));
+            Assert.That(variables.Get("OctopusOriginalPackageDirectoryPath"), Does.EndWith(Path.Combine("Production Tokyo","Acme.Web","1.0.0")));
         }
 
        

@@ -369,7 +369,7 @@ namespace Calamari.Tests.Fixtures.PackageDownload
 
         static void AssertStagePackageOutputVariableSet(CalamariResult result, string filePath)
         {
-            result.AssertOutputVariable("StagedPackage.FullPathOnRemoteMachine", Is.StringStarting(filePath));
+            result.AssertOutputVariable("StagedPackage.FullPathOnRemoteMachine", Does.StartWith(filePath));
         }
 
         class Feed

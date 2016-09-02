@@ -30,7 +30,7 @@ namespace Calamari.Tests.Fixtures.ConfigurationVariables
             variables.Set("DatabaseConnection", null);
 
             var text = PerformTest(GetFixtureResouce("Samples", "NoHeader.config"), variables);
-            Assert.That(text, Is.StringStarting("<configuration"));
+            Assert.That(text, Does.StartWith("<configuration"));
         }
 
         [Test]

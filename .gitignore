@@ -187,3 +187,4 @@ source/Octopus.Deploy.Scripts.Tests/Tests/Variables.vars
 *.received.*
 
 **project.lock.json
+.vscode

@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
 using Calamari.Integration.Processes;
-using Calamari.Util;
 
 namespace Calamari.Tests.Helpers
 {

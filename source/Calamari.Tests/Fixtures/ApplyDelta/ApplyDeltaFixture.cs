@@ -26,13 +26,13 @@ namespace Calamari.Tests.Fixtures.ApplyDelta
                 .Argument("newFileName", newFile));
         }
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void TestFixtureSetUp()
         {
             Environment.SetEnvironmentVariable("TentacleHome", TentacleHome);
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void TestFixtureTearDown()
         {
             Environment.SetEnvironmentVariable("TentacleHome", null);

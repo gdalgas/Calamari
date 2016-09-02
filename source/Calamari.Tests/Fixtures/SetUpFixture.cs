@@ -1,13 +1,11 @@
 using System.IO;
 using Calamari.Commands;
 using Calamari.Integration.Processes;
-using Calamari.Util;
 using NUnit.Framework;
 using System.Reflection;
 
 namespace Calamari.Tests.Fixtures
 {
-    [SetUpFixture]
     public class SetUpFixture
     {
         [SetUp]
