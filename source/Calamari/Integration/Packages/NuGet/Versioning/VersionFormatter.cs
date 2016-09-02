@@ -6,6 +6,7 @@
 using System;
 using System.Globalization;
 using System.Text;
+using Calamari.NuGet.Versioning;
 
 namespace NuGet.Versioning
 {

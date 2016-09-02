@@ -5,8 +5,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NuGet.Versioning;
 
-namespace NuGet.Versioning
+namespace Calamari.NuGet.Versioning
 {
     /// <summary>
     /// A hybrid implementation of SemVer that supports semantic versioning as described at http://semver.org while

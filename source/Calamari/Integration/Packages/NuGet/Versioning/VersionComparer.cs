@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using Calamari.NuGet.Versioning;
 
 namespace NuGet.Versioning
 {

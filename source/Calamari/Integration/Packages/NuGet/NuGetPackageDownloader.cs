@@ -2,7 +2,11 @@
 using System.Net;
 using System.Threading;
 using Calamari.Integration.Retry;
+#if USE_NUGET_V2_LIBS
+using Calamari.NuGet.Versioning;
+#else
 using NuGet.Versioning;
+#endif
 
 namespace Calamari.Integration.Packages.NuGet
 {

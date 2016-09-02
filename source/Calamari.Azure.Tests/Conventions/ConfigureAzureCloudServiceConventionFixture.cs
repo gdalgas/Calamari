@@ -8,6 +8,7 @@ using Calamari.Commands.Support;
 using Calamari.Deployment;
 using Calamari.Integration.FileSystem;
 using Calamari.Integration.Processes;
+using Calamari.Tests.Fixtures.Util;
 using Calamari.Tests.Helpers;
 using Microsoft.WindowsAzure;
 using Microsoft.WindowsAzure.Management.Compute.Models;

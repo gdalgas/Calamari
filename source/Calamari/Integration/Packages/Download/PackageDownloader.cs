@@ -5,11 +5,12 @@ using System.Net;
 using Calamari.Integration.FileSystem;
 using Calamari.Integration.Packages.NuGet;
 using Calamari.Util;
-using NuGet.Versioning;
-#if USE_NUGET_V3_LIBS
-using NuGet.Packaging;
-#else
+#if USE_NUGET_V2_LIBS
 using NuGet;
+using Calamari.NuGet.Versioning;
+#else
+using NuGet.Packaging;
+using NuGet.Versioning;
 #endif
 
 

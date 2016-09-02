@@ -38,7 +38,7 @@
         "Sprache": "2.0.0.45"
       },
       "buildOptions": {
-        "define": [ "NET40", "IIS_SUPPORT", "APPROVAL_TESTS" ]
+        "define": [ "NET40", "IIS_SUPPORT", "APPROVAL_TESTS", "USE_NUGET_V2_LIBS" ]
       }
     }
     //,

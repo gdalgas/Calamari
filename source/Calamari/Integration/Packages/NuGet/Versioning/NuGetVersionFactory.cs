@@ -7,8 +7,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using NuGet.Versioning;
 
-namespace NuGet.Versioning
+namespace Calamari.NuGet.Versioning
 {
     public partial class NuGetVersion
     {
