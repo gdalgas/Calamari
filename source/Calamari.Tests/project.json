@@ -5,7 +5,8 @@
     "NSubstitute": "2.0.0-rc",
     "NUnit": "3.4.1",
     "FluentAssertions": "4.13.1",
-    "dotnet-test-nunit": "3.4.0-beta-2"
+    "dotnet-test-nunit": "3.4.0-beta-2",
+    "NuGet.CommandLine": "2.8.3" 
   },
   "testRunner": "nunit",
   "frameworks": {
@@ -63,11 +64,40 @@
   "buildOptions": {
     "embed": {
       "include": [
-        "Fixtures\\PowerShell\\Scripts\\HelloWithVariable.ps1",
-        "Fixtures\\FSharp\\Scripts\\HelloDefaultValue.fsx",
-        "Fixtures\\FSharp\\Scripts\\HelloDirectValue.fsx",
-        "Fixtures\\FSharp\\Scripts\\HelloVariableSubstitution.fsx"
+        "Fixtures/PowerShell/Scripts/HelloWithVariable.ps1",
+        "Fixtures/FSharp/Scripts/HelloDefaultValue.fsx",
+        "Fixtures/FSharp/Scripts/HelloDirectValue.fsx",
+        "Fixtures/FSharp/Scripts/HelloVariableSubstitution.fsx"
+      ]
+    },
+    "copyToOutput": {
+      "include": [
+        "Fixtures/ConfigurationVariables/Samples/**",
+        "Fixtures/ConfigurationTransforms/Samples/**",
+        "Fixtures/Bash/Scripts/**",
+        "Fixtures/Conventions/ConfigTransforms/**",
+        "Fixtures/Deployment/Packages/Acme.Service/**",
+        "Fixtures/Deployment/Packages/Acme.Web/**",
+        "Fixtures/Deployment/Packages/Acme.Web.Tests/**",
+        "Fixtures/Deployment/Packages/Octopus.Sample.AzureCloudService/**",
+        "Fixtures/FSharp/Scripts/**",
+        "Fixtures/Integration/Packages/Samples/**",
+        "Fixtures/JsonVariables/Samples/**",
+        "Fixtures/PowerShell/Packages/**",
+        "Fixtures/PowerShell/Scripts/**",
+        "Fixtures/ScriptCS/Scripts/**",
+        "Fixtures/Substitutions/Samples/**",
+        "../Calamari/bin/Calamari.exe.config",
+        "../../tools/Octodiff/Octodiff.exe",
+        "../packages/NuGet.CommandLine.2.8.3/tools/Nuget.exe"
       ]
     }
+  },
+  "scripts": {
+    //"postcompile": [
+    //  "xcopy %project:Directory%..\\Calamari\\bin\\Calamari.exe.config $(TargetDir) /y",
+    //  "xcopy %project:Directory%..\\..\\tools\\Octodiff\\Octodiff.exe $(TargetDir) /y",
+    //  "xcopy %project:Directory%..\\..\\packages\\NuGet.CommandLine.2.8.3\\tools\\Nuget.exe $(TargetDir)NuGet\\ /y"
+    //]
   }
 }
