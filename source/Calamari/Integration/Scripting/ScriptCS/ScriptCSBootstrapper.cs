@@ -35,6 +35,10 @@ namespace Calamari.Integration.Scripting.ScriptCS
             if (File.Exists(attemptTwo))
                 return attemptTwo;
 
+            var attemptThree = Path.GetFullPath(Path.Combine("..", "packages", "scriptcs.0.16.1", "tools", "scriptcs.exe"));
+            if (File.Exists(attemptThree))
+                return attemptThree;
+
             throw new CommandException(string.Format("ScriptCS.exe was not found at either '{0}' or '{1}'", attemptOne, attemptTwo));
         }
 
@@ -59,7 +63,7 @@ namespace Calamari.Integration.Scripting.ScriptCS
         {
             var bootstrapFile = Path.Combine(workingDirectory, "Bootstrap." + Guid.NewGuid().ToString().Substring(10) + "." + Path.GetFileName(scriptFilePath));
 
-            using (var file = new FileStream(configurationFile, FileMode.Create, FileAccess.Write))
+            using (var file = new FileStream(bootstrapFile, FileMode.CreateNew, FileAccess.Write))
             using (var writer = new StreamWriter(file, Encoding.UTF8))
             {
                 writer.WriteLine("#load \"" + configurationFile.Replace("\\", "\\\\") + "\"");
@@ -78,7 +82,7 @@ namespace Calamari.Integration.Scripting.ScriptCS
             var builder = new StringBuilder(BootstrapScriptTemplate);
             builder.Replace("{{VariableDeclarations}}", WriteVariableDictionary(variables));
 
-            using (var file = new FileStream(configurationFile, FileMode.Create, FileAccess.Write))
+            using (var file = new FileStream(configurationFile, FileMode.CreateNew, FileAccess.Write))
             using (var writer = new StreamWriter(file, Encoding.UTF8))
             {
                 writer.Write(builder.ToString());

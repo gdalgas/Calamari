@@ -92,12 +92,5 @@
         "../packages/NuGet.CommandLine.2.8.3/tools/Nuget.exe"
       ]
     }
-  },
-  "scripts": {
-    //"postcompile": [
-    //  "xcopy %project:Directory%..\\Calamari\\bin\\Calamari.exe.config $(TargetDir) /y",
-    //  "xcopy %project:Directory%..\\..\\tools\\Octodiff\\Octodiff.exe $(TargetDir) /y",
-    //  "xcopy %project:Directory%..\\..\\packages\\NuGet.CommandLine.2.8.3\\tools\\Nuget.exe $(TargetDir)NuGet\\ /y"
-    //]
   }
 }

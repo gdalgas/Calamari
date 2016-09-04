@@ -36,7 +36,7 @@ namespace Calamari.Integration.Scripting.Bash
             var builder = new StringBuilder(BootstrapScriptTemplate);
             builder.Replace("#### VariableDeclarations ####", string.Join(Environment.NewLine, GetVariableSwitchConditions(variables)));
 
-            using (var file = new FileStream(configurationFile, FileMode.Create, FileAccess.Write))
+            using (var file = new FileStream(configurationFile, FileMode.CreateNew, FileAccess.Write))
             using (var writer = new StreamWriter(file, Encoding.ASCII))
             {
                 writer.Write(builder.Replace(WindowsNewLine, Environment.NewLine));
@@ -96,7 +96,7 @@ namespace Calamari.Integration.Scripting.Bash
         {            
             var bootstrapFile = Path.Combine(workingDirectory, "Bootstrap." + Guid.NewGuid().ToString().Substring(10) + "." + Path.GetFileName(script.File));
 
-            using (var file = new FileStream(bootstrapFile, FileMode.Create, FileAccess.Write))
+            using (var file = new FileStream(bootstrapFile, FileMode.CreateNew, FileAccess.Write))
             using (var writer = new StreamWriter(file, Encoding.ASCII))
             {
                 writer.NewLine = Environment.NewLine;
