@@ -120,13 +120,18 @@ namespace Calamari.Commands
             }
         }
 
-        string FindOctoDiffExecutable()
+        public static string FindOctoDiffExecutable()
         {
-            var basePath = Path.GetDirectoryName(GetType().GetTypeInfo().Assembly.Location);
-            var exePath = Path.Combine(basePath, "Octodiff.exe");
-            if (!File.Exists(exePath))
-                throw new CommandException("Unable to find Octodiff.exe in " + basePath);
-            return exePath;
-        }
+            var basePath = Path.GetDirectoryName(typeof(ApplyDeltaCommand).GetTypeInfo().Assembly.Location);
+            var attemptOne = Path.Combine(basePath, "Octodiff.exe");
+            if (File.Exists(attemptOne))
+                return attemptOne;
+
+            var attemptTwo = Path.Combine(basePath, "tools", "Octodiff", "Octodiff.exe");
+            if (File.Exists(attemptTwo))
+                return attemptTwo;
+
+            throw new CommandException(string.Format("Unable to find Octodiff.exe at {0} or {1}.", attemptOne, attemptTwo));
+        } 
     }
 }

@@ -30,9 +30,7 @@ namespace Calamari.Tests.Helpers
 
         protected CommandLine OctoDiff()
         {
-            var octoDiffExe = Path.Combine(TestEnvironment.CurrentWorkingDirectory, "Octodiff.exe");
-            if (!File.Exists(octoDiffExe))
-                throw new FileNotFoundException($"Unable to find {octoDiffExe}");
+            var octoDiffExe = ApplyDeltaCommand.FindOctoDiffExecutable();
 
             return CommandLine.Execute(octoDiffExe);
         }
