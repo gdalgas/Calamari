@@ -123,11 +123,11 @@ namespace Calamari.Commands
         public static string FindOctoDiffExecutable()
         {
             var basePath = Path.GetDirectoryName(typeof(ApplyDeltaCommand).GetTypeInfo().Assembly.Location);
-            var attemptOne = Path.Combine(basePath, "Octodiff.exe");
+            var attemptOne = Path.GetFullPath(Path.Combine(basePath, "Octodiff.exe"));
             if (File.Exists(attemptOne))
                 return attemptOne;
 
-            var attemptTwo = Path.Combine(basePath, "tools", "Octodiff", "Octodiff.exe");
+            var attemptTwo = Path.GetFullPath(Path.Combine(basePath, "tools", "Octodiff", "Octodiff.exe"));
             if (File.Exists(attemptTwo))
                 return attemptTwo;
 

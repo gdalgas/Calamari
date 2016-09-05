@@ -55,7 +55,7 @@
         "Newtonsoft.Json": "9.0.1",
         "NuGet.Commands": "3.5.0-rc1-final",
         "NuGet.Protocol.Core.v3": "3.5.0-rc1-final",
-        "Octopus.Web.XmlTransform": "1.0.0-convert-to-netst0014",
+        "Octopus.Web.XmlTransform": "1.0.0-ci0016",
         "Octostache": "2.0.0-dnc0028",
         "scriptcs": "0.16.1",
         "SharpCompress": "0.12.4",
@@ -76,7 +76,8 @@
         "System.Security.Cryptography.Primitives": "4.0.0",
         "System.Security.Cryptography.X509Certificates": "4.1.0",
         "System.Threading.AccessControl": "4.0.0",
-        "System.Xml.XPath.XDocument": "4.0.1"
+        "System.Xml.XPath.XDocument": "4.0.1",
+        "System.Text.Encoding.CodePages": "4.0.1" 
       },
       "buildOptions": {
         "define": [ "USE_OCTOPUS_XMLT", "USE_SYSTEM_IO_DIRECTORY", "USE_NUGET_V3_LIBS" ]
