@@ -6,7 +6,6 @@ using NUnit.Framework;
 
 namespace Calamari.Azure.Tests
 {
-    [SetUpFixture]
     public class SetUpFixture
     {
         [SetUp]

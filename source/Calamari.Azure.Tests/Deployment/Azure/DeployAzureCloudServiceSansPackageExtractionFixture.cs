@@ -16,7 +16,7 @@ namespace Calamari.Azure.Tests.Deployment.Azure
         ICalamariFileSystem fileSystem;
         string stagingDirectory;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void Deploy()
         {
             OctopusTestAzureSubscription.IgnoreIfCertificateNotInstalled();
@@ -50,7 +50,7 @@ namespace Calamari.Azure.Tests.Deployment.Azure
                     .Argument("variables", variablesFile));       
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void CleanUp()
         {
             if (!string.IsNullOrWhiteSpace(stagingDirectory))

@@ -18,7 +18,7 @@ namespace Calamari.Azure.Tests.Deployment.Azure
         VariableDictionary variables;
         CalamariResult result;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void Deploy()
         {
             const string webAppName = "octodemo003-dev";
@@ -41,7 +41,7 @@ namespace Calamari.Azure.Tests.Deployment.Azure
             result = DeployPackage("Acme.Web");
         }
 
-        [TestFixtureTearDown]
+        [OneTimeTearDown]
         public void CleanUp()
         {
             if (!string.IsNullOrWhiteSpace(stagingDirectory))

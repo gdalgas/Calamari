@@ -39,7 +39,12 @@
   "buildOptions": {
     "embed": {
       "include": [
-        "CloudServicePackage\\ManifestSchema\\PackageDefinition.xsd"
+        "CloudServicePackage/ManifestSchema/PackageDefinition.xsd"
+      ]
+    },
+    "copyToOutput": {
+      "include": [
+        "ResourceGroups/*.json"
       ]
     }
   }

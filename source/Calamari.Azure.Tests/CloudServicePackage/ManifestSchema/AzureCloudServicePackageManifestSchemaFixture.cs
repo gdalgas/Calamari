@@ -68,9 +68,8 @@ namespace Calamari.Azure.Tests.CloudServicePackage.ManifestSchema
 
         public static string GetPackageManifestSchema()
         {
-            using (var stream = typeof (AzureCloudServicePackageManifestSchemaFixture)
-                .Assembly.GetManifestResourceStream(
-                    "Calamari.Tests.Fixtures.Azure.CloudServicePackage.ManifestSchema.PackageDefinition.xsd"))
+            var assembly = typeof(AzureCloudServicePackageManifestSchemaFixture).Assembly;
+            using (var stream = assembly.GetManifestResourceStream("Calamari.Azure.Tests.CloudServicePackage.ManifestSchema.PackageDefinition.xsd"))
             using (var reader = new StreamReader(stream))
             {
                 return reader.ReadToEnd();
