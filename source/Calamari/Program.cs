@@ -24,7 +24,7 @@ namespace Calamari
             return program.Execute(args);
         }
 
-        protected int Execute(string[] args)
+        public int Execute(string[] args)
         {
             Log.Verbose($"Octopus Deploy: {displayName} version {informationalVersion}");
 

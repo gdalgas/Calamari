@@ -20,11 +20,12 @@ namespace Calamari.Tests.Helpers
     {
         protected CommandLine Calamari()
         {
+#if NET40
             var calamariFullPath = typeof (DeployPackageCommand).GetTypeInfo().Assembly.FullLocalPath();
-            var calamariConfigFilePath = calamariFullPath + ".config";
-            if (!File.Exists(calamariConfigFilePath))
-                throw new FileNotFoundException($"Unable to find {calamariConfigFilePath} which means the config file would not have been included in testing {calamariFullPath}");
-
+#else
+            var folder = Path.GetDirectoryName(typeof(Program).GetTypeInfo().Assembly.FullLocalPath());
+            var calamariFullPath = Path.Combine(folder, "Calamari.Tests.exe");
+#endif
             return CommandLine.Execute(calamariFullPath);
         }
 

@@ -26,7 +26,8 @@ namespace Calamari.Util
 #if HAS_DEFAULT_ENCODING
             return Encoding.Default;
 #else
-            return RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? Encoding.GetEncoding("windows-1251") : Encoding.UTF8;
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            return Encoding.GetEncoding(0); // returns windows-1251 for windows
 #endif
         }
 
