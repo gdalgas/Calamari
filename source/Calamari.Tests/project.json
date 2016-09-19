@@ -58,7 +58,8 @@
         "Microsoft.Web.Xdt": "2.1.1",
         "Octostache": "1.0.2.41",
         "SharpCompress": "0.12.4",
-        "Sprache": "2.0.0.45"
+        "Sprache": "2.0.0.45",
+        "Polly": "4.3.0" 
       },
       "buildOptions": {
         "define": [ "NET40", "IIS_SUPPORT", "APPROVAL_TESTS", "USE_NUGET_V2_LIBS" ]

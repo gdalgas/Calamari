@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if IIS_SUPPORT
+using System;
 using System.Linq;
 using Calamari.Deployment;
 using Calamari.Integration.FileSystem;
@@ -289,3 +290,4 @@ namespace Calamari.Tests.Fixtures.Deployment
         }
     }
 }
+#endif
