@@ -12,6 +12,7 @@ using NuGet.Packaging.Core;
 using NuGet.Protocol;
 using NuGet.Protocol.Core.Types;
 using NuGet.Versioning;
+using System.IO;
 
 namespace Calamari.Integration.Packages.NuGet
 {
@@ -29,20 +30,22 @@ namespace Calamari.Integration.Packages.NuGet
 
             var providers = new SourceRepositoryDependencyProvider(sourceRepository, logger, new SourceCacheContext());
             var libraryIdentity = new LibraryIdentity(packageId, version, LibraryType.Package);
-            var packageIdentity = new PackageIdentity(packageId, version);
 
-            var versionFolderPathContext = new VersionFolderPathContext(
-                packageIdentity,
-                targetFilePath,
-                logger,
-                PackageSaveMode.Nupkg,
-                XmlDocFileSaveMode.None);
+            var targetPath = Directory.GetParent(targetFilePath).FullName;
+            if (!Directory.Exists(targetPath))
+            {
+                Directory.CreateDirectory(targetPath);
+            }
 
-            PackageExtractor.InstallFromSourceAsync(
-                stream => providers.CopyToAsync(libraryIdentity, stream, CancellationToken.None),
-                versionFolderPathContext, CancellationToken.None)
-                .GetAwaiter()
-                .GetResult();
+            string targetTempNupkg = Path.Combine(targetPath, Path.GetRandomFileName());
+            using (var nupkgStream = new FileStream(targetTempNupkg, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite | FileShare.Delete, 4096, true))
+            {
+                providers.CopyToAsync(libraryIdentity, nupkgStream, CancellationToken.None)
+                        .GetAwaiter()
+                        .GetResult();
+            }
+
+            File.Move(targetTempNupkg, targetFilePath);
         }
 
         public class NugetLogger : ILogger
@@ -58,6 +61,6 @@ namespace Calamari.Integration.Packages.NuGet
             public void LogErrorSummary(string data) => Log.Error(data);
         }
     }
-}     
+}
 
 #endif
