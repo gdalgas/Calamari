@@ -58,7 +58,9 @@ namespace Calamari.Tests.Fixtures.PackageDownload
 
             result.AssertOutput("Downloading NuGet package {0} {1} from feed: '{2}'", PublicFeed.PackageId, PublicFeed.Version, PublicFeedUri);
             result.AssertOutput("Downloaded package will be stored in: '{0}'", PublicFeed.DownloadFolder);
+#if USE_NUGET_V2_LIBS
             result.AssertOutput("Found package {0} version {1}", PublicFeed.PackageId, PublicFeed.Version);
+#endif
             AssertPackageHashMatchesExpected(result, ExpectedPackageHash);
             AssertPackageSizeMatchesExpected(result, ExpectedPackageSize);
             AssertStagePackageOutputVariableSet(result, PublicFeed.File);
@@ -356,7 +358,6 @@ namespace Calamari.Tests.Fixtures.PackageDownload
                 calamari.Flag("forcePackageDownload");
 
             return Invoke(calamari);
-
         }
 
         static void AssertPackageHashMatchesExpected(CalamariResult result, string expectedHash)

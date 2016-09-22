@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using Calamari.Integration.ConfigurationTransforms;
@@ -39,7 +40,12 @@ namespace Calamari.Tests.Fixtures.ConfigurationTransforms
 
         [Test]
         [Category(TestEnvironment.CompatibleOS.Windows)] //Problem with XML on Linux
+#if USE_OCTOPUS_XMLT
+        //vs shows ambiguous refence here but it builds and runs fine?
+        [ExpectedException(typeof(Octopus.System.Xml.XmlException))]
+#else
         [ExpectedException(typeof(System.Xml.XmlException))]
+#endif
         public void ShouldThrowExceptionForBadConfig()
         {
             PerformTest(GetFixtureResouce("Samples", "Bad.config"), GetFixtureResouce("Samples", "Web.Release.config"));
