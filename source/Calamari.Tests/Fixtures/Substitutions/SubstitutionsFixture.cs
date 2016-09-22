@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using Calamari.Deployment;
@@ -38,7 +39,7 @@ namespace Calamari.Tests.Fixtures.Substitutions
 
             var text = PerformTest(GetFixtureResouce("Samples", "ParserErrors.txt"), variables).Text;
 
-            Assert.AreEqual("the quick brown replaced fox jumps over the lazy #{dog\r\nthe quick brown replaced fox jumps over the lazy #{dog #{", text);
+            Assert.AreEqual("the quick brown replaced fox jumps over the lazy #{dog" + Environment.NewLine + "the quick brown replaced fox jumps over the lazy #{dog #{", text);
         }
 
         [Test]
