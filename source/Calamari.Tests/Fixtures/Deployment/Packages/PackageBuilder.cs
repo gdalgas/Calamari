@@ -11,6 +11,9 @@ namespace Calamari.Tests.Fixtures.Deployment.Packages
         public static string BuildSamplePackage(string name, string version, bool modifyPackage = false)
         {
             var nugetCommandLine = TestEnvironment.GetTestPath("packages", "NuGet.CommandLine.2.8.3", "tools", "NuGet.exe");
+            if(!File.Exists(nugetCommandLine))
+                nugetCommandLine = Path.GetFullPath(
+                    Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".nuget", "packages", "NuGet.CommandLine", "2.8.3", "tools", "NuGet.exe"));
             Assert.That(File.Exists(nugetCommandLine), string.Format("NuGet.exe is not available (expected at {0}).", nugetCommandLine));
 
             var packageDirectory = TestEnvironment.GetTestPath("Fixtures", "Deployment", "Packages", name);

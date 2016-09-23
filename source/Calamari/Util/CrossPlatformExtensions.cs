@@ -80,7 +80,7 @@ namespace Calamari.Util
 #if NET40
             return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
 #else
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (IsWindows())
             {
                 return Environment.GetEnvironmentVariable("PROGRAMDATA") ?? "C:\\ProgramData";
             }
@@ -96,7 +96,7 @@ namespace Calamari.Util
 #if NET40
             return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 #else
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (IsWindows())
             {
                 var appdata = Environment.GetEnvironmentVariable("APPDATA");
                 if(appdata != null) return appdata;
@@ -118,7 +118,7 @@ namespace Calamari.Util
 #if NET40
             return Environment.GetFolderPath(Environment.SpecialFolder.System);
 #else
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (IsWindows())
             {
                 var system = Environment.GetEnvironmentVariable("SYSTEMROOT") ?? "C:\\Windows";
                 return Path.Combine(system, "System32");
@@ -135,7 +135,7 @@ namespace Calamari.Util
 #if NET40
             return Environment.UserDomainName;
 #else
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (IsWindows())
             {
                 return Environment.GetEnvironmentVariable("USERDOMAIN");
             }
@@ -153,6 +153,17 @@ namespace Calamari.Util
 #else
             return Environment.GetEnvironmentVariable("USERNAME") ?? Environment.GetEnvironmentVariable("USER");
 #endif                
+        }
+
+        public static bool IsWindows()
+        {
+#if NET40
+            return System.Environment.OSVersion.Platform == PlatformID.Win32NT
+                || System.Environment.OSVersion.Platform == PlatformID.Win32S
+                || System.Environment.OSVersion.Platform == PlatformID.Win32Windows;
+#else
+            return RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+#endif
         }
     }
 }

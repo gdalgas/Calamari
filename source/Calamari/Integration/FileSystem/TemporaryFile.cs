@@ -16,7 +16,7 @@ namespace Calamari.Integration.FileSystem
 
         public string DirectoryPath
         {
-            get { return Path.GetDirectoryName(FilePath); }
+            get { return "file://" + Path.GetDirectoryName(FilePath); }
         }
 
         public string FilePath

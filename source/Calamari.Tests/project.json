@@ -28,42 +28,44 @@
       },
       "buildOptions": {
         "define": [ "NETCORE", "USE_OCTOPUS_XMLT" ],
-        "emitEntryPoint": true
-      }
-    },
-    "net451": {
-      "frameworkAssemblies": {
-        "System.Core": "*",
-        "System.Net": "*",
-        "System.ServiceProcess": "*",
-        "System.Xml.Linq": "*",
-        "System.Data.DataSetExtensions": "*",
-        "Microsoft.CSharp": "*",
-        "System.Data": "*",
-        "System.Xml": "*",
-        "WindowsBase": "*"
-      },
-      "dependencies": {
-        "ApprovalTests": "3.0.11",
-        "ApprovalUtilities": "3.0.11",
-        "GitVersionTask": "3.3.0",
-        "MarkdownSharp": "1.13.0.0",
-        "Microsoft.Bcl": "1.1.9",
-        "Microsoft.Bcl.Async": "1.0.168",
-        "Microsoft.Bcl.Build": "1.0.14",
-        "Microsoft.Net.Http": "2.2.22",
-        "Microsoft.Web.Administration": "7.0.0.0",
-        "Microsoft.Web.Deployment": "3.6.0",
-        "Microsoft.Web.Xdt": "2.1.1",
-        "Octostache": "1.0.2.41",
-        "SharpCompress": "0.12.4",
-        "Sprache": "2.0.0.45",
-        "Polly": "4.3.0" 
-      },
-      "buildOptions": {
-        "define": [ "NET40", "IIS_SUPPORT", "APPROVAL_TESTS", "USE_NUGET_V2_LIBS" ]
+        "emitEntryPoint": true,
+        "debugType": "portable"
       }
     }
+    //,
+    // "net451": {
+    //   "frameworkAssemblies": {
+    //     "System.Core": "*",
+    //     "System.Net": "*",
+    //     "System.ServiceProcess": "*",
+    //     "System.Xml.Linq": "*",
+    //     "System.Data.DataSetExtensions": "*",
+    //     "Microsoft.CSharp": "*",
+    //     "System.Data": "*",
+    //     "System.Xml": "*",
+    //     "WindowsBase": "*"
+    //   },
+    //   "dependencies": {
+    //     "ApprovalTests": "3.0.11",
+    //     "ApprovalUtilities": "3.0.11",
+    //     "GitVersionTask": "3.3.0",
+    //     "MarkdownSharp": "1.13.0.0",
+    //     "Microsoft.Bcl": "1.1.9",
+    //     "Microsoft.Bcl.Async": "1.0.168",
+    //     "Microsoft.Bcl.Build": "1.0.14",
+    //     "Microsoft.Net.Http": "2.2.22",
+    //     "Microsoft.Web.Administration": "7.0.0.0",
+    //     "Microsoft.Web.Deployment": "3.6.0",
+    //     "Microsoft.Web.Xdt": "2.1.1",
+    //     "Octostache": "1.0.2.41",
+    //     "SharpCompress": "0.12.4",
+    //     "Sprache": "2.0.0.45",
+    //     "Polly": "4.3.0" 
+    //   },
+      // "buildOptions": {
+      //   "define": [ "NET40", "IIS_SUPPORT", "APPROVAL_TESTS", "USE_NUGET_V2_LIBS" ]
+      // }
+    //}
   },
   "buildOptions": {
     "embed": {

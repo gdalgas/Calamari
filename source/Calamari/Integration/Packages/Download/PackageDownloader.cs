@@ -127,7 +127,7 @@ namespace Calamari.Integration.Packages.Download
 
             var fullPathToDownloadTo = GetFilePathToDownloadPackageTo(cacheDirectory, packageId, version.ToString());
 
-           NuGetPackageDownloader.DownloadPackage(packageId, version, feedUri, feedCredentials, fullPathToDownloadTo); 
+            NuGetPackageDownloader.DownloadPackage(packageId, version, feedUri, feedCredentials, fullPathToDownloadTo); 
 
             downloaded = new LocalNuGetPackage(fullPathToDownloadTo);
             downloadedTo = fullPathToDownloadTo; 

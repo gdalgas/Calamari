@@ -39,7 +39,12 @@ namespace Calamari.Integration.Scripting.ScriptCS
             if (File.Exists(attemptThree))
                 return attemptThree;
 
-            throw new CommandException(string.Format("ScriptCS.exe was not found at either '{0}' or '{1}' or '{3}'", attemptOne, attemptTwo, attemptThree));
+            var attemptFour = Path.GetFullPath(
+                Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".nuget", "packages", "scriptcs", "0.16.1", "tools", "scriptcs.exe"));
+            if (File.Exists(attemptFour))
+                return attemptFour;
+
+            throw new CommandException(string.Format("ScriptCS.exe was not found at either '{0}' or '{1}' or '{2}'", attemptOne, attemptTwo, attemptThree));
         }
 
         public static string FormatCommandArguments(string bootstrapFile, string scriptParameters)

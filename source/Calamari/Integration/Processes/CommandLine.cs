@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using Calamari.Util;
 
 namespace Calamari.Integration.Processes
 {
@@ -9,6 +10,7 @@ namespace Calamari.Integration.Processes
         readonly string executable;
         string action;
         readonly List<string> arguments = new List<string>();
+        bool dotnet;
         
         public static CommandLine Execute(string executable)
         {
@@ -32,6 +34,12 @@ namespace Calamari.Integration.Processes
         public CommandLine Argument(string argument)
         {
             arguments.Add(Escape(argument));
+            return this;
+        }
+
+        public CommandLine DotNet()
+        {
+            dotnet = true;
             return this;
         }
 
@@ -111,6 +119,13 @@ namespace Calamari.Integration.Processes
                 last -= 1;
             }
 
+            #if NET40
+            #else
+            // linux under bash on netcore empty "" gets eaten, hand "\0"
+            // which gets through as a null string
+            if(argValue == "")
+                argValue = "\0";
+            #endif
             // Double-quotes are always escaped.
             return "\"" + argValue.Replace("\"", "\\\"") + "\"";
         }
@@ -124,6 +139,18 @@ namespace Calamari.Integration.Processes
         public CommandLineInvocation Build()
         {
             var argLine = new List<string>();
+            #if NET40
+            #else
+            if(dotnet && !CrossPlatform.IsWindows())
+            {
+                argLine.Add(executable);
+                if (action != null)
+                    argLine.Add(action);
+                argLine.AddRange(arguments);
+
+                return new CommandLineInvocation("dotnet", string.Join(" ", argLine));
+            }
+            #endif
             if (action != null)
                 argLine.Add(action);
             argLine.AddRange(arguments);

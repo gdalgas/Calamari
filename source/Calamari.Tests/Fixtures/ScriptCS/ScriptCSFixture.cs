@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Calamari.Integration.FileSystem;
 using Calamari.Tests.Helpers;
 using NUnit.Framework;
@@ -15,7 +16,7 @@ namespace Calamari.Tests.Fixtures.ScriptCS
             var output = Invoke(Calamari()
                 .Action("run-script")
                 .Argument("script", GetFixtureResouce("Scripts", "PrintEncodedVariable.csx")));
-
+            
             output.AssertSuccess();
             output.AssertOutput("##octopus[setVariable name='RG9ua2V5' value='S29uZw==']");
         }
