@@ -46,7 +46,7 @@
     },
     "netcoreapp1.0": {
       "dependencies": {
-        "FSharp.Compiler.Tools": "4.0.1.10",
+        "FSharp.Compiler.Tools": "4.0.0.1",
         "Markdown": "2.1.0",
         "Microsoft.NETCore.Runtime.CoreCLR": "1.0.4",
         "Microsoft.NETCore.DotNetHostPolicy": "1.0.1",
