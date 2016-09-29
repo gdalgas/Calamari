@@ -55,7 +55,6 @@ namespace Calamari.Tests.Fixtures.ApplyDelta
         [Test]
         public void ShouldApplyDeltaToPreviousPackageToCreateNewPackage()
         {
-            Console.WriteLine("go go go");
             using (var basisFile = new TemporaryFile(PackageBuilder.BuildSamplePackage("Acme.Web", "1.0.0.0")))
             using (var signatureFile = new TemporaryFile(basisFile.FilePath + ".octosig"))
             {
