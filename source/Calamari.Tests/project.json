@@ -63,12 +63,7 @@
          "Polly": "4.3.0" 
        },
       "buildOptions": {
-        "define": [ "NET40", "IIS_SUPPORT", "APPROVAL_TESTS", "USE_NUGET_V2_LIBS", "USE_OCTODIFF_EXE" ],
-        "copyToOutput": {
-          "include": [
-            "../packages/NuGet.CommandLine.2.8.3/tools/Nuget.exe"
-          ]
-        }
+        "define": [ "NET40", "IIS_SUPPORT", "APPROVAL_TESTS", "USE_NUGET_V2_LIBS", "USE_OCTODIFF_EXE" ]
       }
     }
   },
