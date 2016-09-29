@@ -38,7 +38,7 @@ namespace Calamari.Integration.Scripting.FSharp
             if (File.Exists(attemptThree)) return attemptThree;
 
             var attemptFour = Path.GetFullPath(
-                Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".nuget", "packages", "FSharp.Compiler.Tools", "4.0.0.1", "tools", "fsi.exe"));
+                Path.Combine(CrossPlatform.GetHomeFolder(), ".nuget", "packages", "FSharp.Compiler.Tools", "4.0.0.1", "tools", "fsi.exe"));
             if (File.Exists(attemptFour)) return attemptFour;
 
             throw new CommandException(string.Format("fsi.exe was not found at either '{0}', '{1}' or '{2}' or '{3}'", attemptOne, attemptTwo, attemptThree, attemptFour));

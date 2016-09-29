@@ -5,7 +5,6 @@ using Calamari.Integration.Processes;
 using Calamari.Integration.ServiceMessages;
 using Octostache;
 using System.Reflection;
-using Calamari.Util;
 #if APPROVAL_TESTS
 using ApprovalTests.Namers;
 using ApprovalTests.Reporters;
@@ -26,7 +25,7 @@ namespace Calamari.Tests.Helpers
             calamariFullPath = typeof (DeployPackageCommand).GetTypeInfo().Assembly.FullLocalPath();
 #else
             var folder = Path.GetDirectoryName(typeof(Program).GetTypeInfo().Assembly.FullLocalPath());
-            if(CrossPlatform.IsWindows())
+            if(Util.CrossPlatform.IsWindows())
             {
                 calamariFullPath = Path.Combine(folder, "Calamari.Tests.exe");
             }
@@ -40,7 +39,7 @@ namespace Calamari.Tests.Helpers
 
         protected CommandLine OctoDiff()
         {
-            var octoDiffExe = ApplyDeltaCommand.FindOctoDiffExecutable();
+            var octoDiffExe = OctoDiffCommandLineRunner.FindOctoDiffExecutable();
 
             return CommandLine.Execute(octoDiffExe);
         }

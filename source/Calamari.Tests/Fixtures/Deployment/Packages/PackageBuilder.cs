@@ -2,6 +2,7 @@
 using System.IO;
 using Calamari.Integration.Processes;
 using Calamari.Tests.Helpers;
+using Calamari.Util;
 using NUnit.Framework;
 
 namespace Calamari.Tests.Fixtures.Deployment.Packages
@@ -13,7 +14,7 @@ namespace Calamari.Tests.Fixtures.Deployment.Packages
             var nugetCommandLine = TestEnvironment.GetTestPath("packages", "NuGet.CommandLine.2.8.3", "tools", "NuGet.exe");
             if(!File.Exists(nugetCommandLine))
                 nugetCommandLine = Path.GetFullPath(
-                    Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".nuget", "packages", "NuGet.CommandLine", "2.8.3", "tools", "NuGet.exe"));
+                    Path.Combine(CrossPlatform.GetHomeFolder(), ".nuget", "packages", "NuGet.CommandLine", "2.8.3", "tools", "NuGet.exe"));
             Assert.That(File.Exists(nugetCommandLine), string.Format("NuGet.exe is not available (expected at {0}).", nugetCommandLine));
 
             var packageDirectory = TestEnvironment.GetTestPath("Fixtures", "Deployment", "Packages", name);

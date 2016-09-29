@@ -6,7 +6,8 @@
     "NUnit": "3.4.1",
     "FluentAssertions": "4.13.1",
     "dotnet-test-nunit": "3.4.0-beta-2",
-    "NuGet.CommandLine": "2.8.3"
+    "NuGet.CommandLine": "2.8.3",
+    "OctoDiff": "1.1.0-dnc0013"
   },
   "testRunner": "nunit",
   "frameworks": {
@@ -31,41 +32,45 @@
         "emitEntryPoint": true,
         "debugType": "portable"
       }
+    },
+     "net451": {
+       "frameworkAssemblies": {
+         "System.Core": "*",
+         "System.Net": "*",
+         "System.ServiceProcess": "*",
+         "System.Xml.Linq": "*",
+         "System.Data.DataSetExtensions": "*",
+         "Microsoft.CSharp": "*",
+         "System.Data": "*",
+         "System.Xml": "*",
+         "WindowsBase": "*"
+       },
+       "dependencies": {
+         "ApprovalTests": "3.0.11",
+         "ApprovalUtilities": "3.0.11",
+         "GitVersionTask": "3.3.0",
+         "MarkdownSharp": "1.13.0.0",
+         "Microsoft.Bcl": "1.1.9",
+         "Microsoft.Bcl.Async": "1.0.168",
+         "Microsoft.Bcl.Build": "1.0.14",
+         "Microsoft.Net.Http": "2.2.22",
+         "Microsoft.Web.Administration": "7.0.0.0",
+         "Microsoft.Web.Deployment": "3.6.0",
+         "Microsoft.Web.Xdt": "2.1.1",
+         "Octostache": "1.0.2.41",
+         "SharpCompress": "0.12.4",
+         "Sprache": "2.0.0.45",
+         "Polly": "4.3.0" 
+       },
+      "buildOptions": {
+        "define": [ "NET40", "IIS_SUPPORT", "APPROVAL_TESTS", "USE_NUGET_V2_LIBS", "USE_OCTODIFF_EXE" ],
+        "copyToOutput": {
+          "include": [
+            "../packages/NuGet.CommandLine.2.8.3/tools/Nuget.exe"
+          ]
+        }
+      }
     }
-    //,
-    // "net451": {
-    //   "frameworkAssemblies": {
-    //     "System.Core": "*",
-    //     "System.Net": "*",
-    //     "System.ServiceProcess": "*",
-    //     "System.Xml.Linq": "*",
-    //     "System.Data.DataSetExtensions": "*",
-    //     "Microsoft.CSharp": "*",
-    //     "System.Data": "*",
-    //     "System.Xml": "*",
-    //     "WindowsBase": "*"
-    //   },
-    //   "dependencies": {
-    //     "ApprovalTests": "3.0.11",
-    //     "ApprovalUtilities": "3.0.11",
-    //     "GitVersionTask": "3.3.0",
-    //     "MarkdownSharp": "1.13.0.0",
-    //     "Microsoft.Bcl": "1.1.9",
-    //     "Microsoft.Bcl.Async": "1.0.168",
-    //     "Microsoft.Bcl.Build": "1.0.14",
-    //     "Microsoft.Net.Http": "2.2.22",
-    //     "Microsoft.Web.Administration": "7.0.0.0",
-    //     "Microsoft.Web.Deployment": "3.6.0",
-    //     "Microsoft.Web.Xdt": "2.1.1",
-    //     "Octostache": "1.0.2.41",
-    //     "SharpCompress": "0.12.4",
-    //     "Sprache": "2.0.0.45",
-    //     "Polly": "4.3.0" 
-    //   },
-      // "buildOptions": {
-      //   "define": [ "NET40", "IIS_SUPPORT", "APPROVAL_TESTS", "USE_NUGET_V2_LIBS" ]
-      // }
-    //}
   },
   "buildOptions": {
     "embed": {
@@ -92,9 +97,7 @@
         "Fixtures/PowerShell/Packages/**",
         "Fixtures/PowerShell/Scripts/**",
         "Fixtures/ScriptCS/Scripts/**",
-        "Fixtures/Substitutions/Samples/**",
-        "../../tools/Octodiff/Octodiff.exe",
-        "../packages/NuGet.CommandLine.2.8.3/tools/Nuget.exe"
+        "Fixtures/Substitutions/Samples/**"
       ]
     }
   },

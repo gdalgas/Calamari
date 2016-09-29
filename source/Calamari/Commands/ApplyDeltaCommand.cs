@@ -4,9 +4,6 @@ using Calamari.Commands.Support;
 using Calamari.Integration.FileSystem;
 using Calamari.Integration.Packages;
 using Calamari.Integration.Processes;
-using Calamari.Integration.ServiceMessages;
-using Calamari.Util;
-using System.Reflection;
 
 namespace Calamari.Commands
 {
@@ -42,12 +39,13 @@ namespace Calamari.Commands
             ValidateParameters(out basisFilePath, out deltaFilePath, out newFilePath);
             fileSystem.EnsureDiskHasEnoughFreeSpace(packageStore.GetPackagesDirectory());
 
-            var commandLineRunner = new CommandLineRunner(new SplitCommandOutput(new ConsoleCommandOutput(),
-                new ServiceMessageCommandOutput(new CalamariVariableDictionary())));
-
             var tempNewFilePath = newFilePath + ".partial";
-            var executable = FindOctoDiffExecutable();
-            var octoDiff = CommandLine.Execute(executable)
+#if USE_OCTODIFF_EXE
+            var factory = new OctoDiffCommandLineRunner();
+#else
+            var factory = new OctoDiffLibraryCallRunner();
+#endif
+            var octoDiff = factory.OctoDiff
                 .Action("patch")
                 .PositionalArgument(basisFilePath)
                 .PositionalArgument(deltaFilePath)
@@ -59,14 +57,13 @@ namespace Calamari.Commands
             if(showProgress)
                 octoDiff.Flag("progress");
 
-            Log.Info("Applying delta to {0} with hash {1} and storing as {2}", basisFilePath, fileHash,
-                newFilePath);
+            Log.Info("Applying delta to {0} with hash {1} and storing as {2}", basisFilePath, fileHash, newFilePath);
 
-            var result = commandLineRunner.Execute(octoDiff.Build());
+            var result = factory.Execute();
             if (result.ExitCode != 0)
             {
                 fileSystem.DeleteFile(tempNewFilePath, FailureOptions.ThrowOnFailure);
-                throw new CommandLineException(executable, result.ExitCode, result.Errors);
+                throw new CommandLineException("OctoDiff", result.ExitCode, result.Errors);
             }
 
             File.Move(tempNewFilePath, newFilePath);
@@ -119,19 +116,5 @@ namespace Calamari.Commands
                                            " does not match the file hash specified " + fileHash);
             }
         }
-
-        public static string FindOctoDiffExecutable()
-        {
-            var basePath = Path.GetDirectoryName(typeof(ApplyDeltaCommand).GetTypeInfo().Assembly.Location);
-            var attemptOne = Path.GetFullPath(Path.Combine(basePath, "Octodiff.exe"));
-            if (File.Exists(attemptOne))
-                return attemptOne;
-
-            var attemptTwo = Path.GetFullPath(Path.Combine(basePath, "tools", "Octodiff", "Octodiff.exe"));
-            if (File.Exists(attemptTwo))
-                return attemptTwo;
-
-            throw new CommandException(string.Format("Unable to find Octodiff.exe at {0} or {1}.", attemptOne, attemptTwo));
-        } 
     }
 }

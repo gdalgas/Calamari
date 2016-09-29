@@ -8,13 +8,26 @@ namespace Calamari.Integration.Processes
     public class CommandLine
     {
         readonly string executable;
+        readonly Func<string[], int> func;
         string action;
         readonly List<string> arguments = new List<string>();
         bool dotnet;
-        
+        bool rawArgList;
+
         public static CommandLine Execute(string executable)
         {
             return new CommandLine(executable);
+        }
+
+        public static CommandLine Execute(Func<string[], int> func)
+        {
+            return new CommandLine(func);
+        }
+
+        private CommandLine(Func<string[], int> func)
+        {
+            this.func = func;
+            rawArgList = true;
         }
 
         public CommandLine(string executable)
@@ -66,7 +79,7 @@ namespace Calamari.Integration.Processes
             return this;
         }
 
-        static string MakePositionalArg(object argValue)
+        string MakePositionalArg(object argValue)
         {
             var sval = "";
             var f = argValue as IFormattable;
@@ -77,7 +90,8 @@ namespace Calamari.Integration.Processes
 
             return Escape(sval);
         }
-        static string MakeArg(string argName, object argValue)
+
+        string MakeArg(string argName, object argValue)
         {
             var sval = "";
             var f = argValue as IFormattable;
@@ -89,9 +103,11 @@ namespace Calamari.Integration.Processes
             return string.Format("-{0} {1}", Normalize(argName), Escape(sval));
         }
 
-        public static string Escape(string argValue)
+        string Escape(string argValue)
         {
             if (argValue == null) throw new ArgumentNullException("argValue");
+            if (rawArgList)
+                return argValue;
 
             // Though it isn't aesthetically pleasing, we always return a double-quoted
             // value.
@@ -156,6 +172,15 @@ namespace Calamari.Integration.Processes
             argLine.AddRange(arguments);
 
             return new CommandLineInvocation(executable, string.Join(" ", argLine));
+        }
+
+        public LibraryCallInvocation BuildLibraryCall()
+        {
+            var argLine = new List<string>();
+            if (action != null)
+                argLine.Add(action);
+            argLine.AddRange(arguments);
+            return new LibraryCallInvocation(func, argLine.ToArray());
         }
     }
 }

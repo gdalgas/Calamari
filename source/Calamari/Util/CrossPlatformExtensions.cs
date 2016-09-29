@@ -165,5 +165,12 @@ namespace Calamari.Util
             return RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 #endif
         }
+
+        public static string GetHomeFolder()
+        {
+            return IsWindows()
+                ? Environment.ExpandEnvironmentVariables("%HOMEDRIVE%%HOMEPATH%")
+                : Environment.GetEnvironmentVariable("HOME");
+        }
     }
 }

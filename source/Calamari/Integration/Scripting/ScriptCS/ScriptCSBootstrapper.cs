@@ -40,7 +40,7 @@ namespace Calamari.Integration.Scripting.ScriptCS
                 return attemptThree;
 
             var attemptFour = Path.GetFullPath(
-                Path.Combine(Environment.GetEnvironmentVariable("HOME"), ".nuget", "packages", "scriptcs", "0.16.1", "tools", "scriptcs.exe"));
+                Path.Combine(CrossPlatform.GetHomeFolder(), ".nuget", "packages", "scriptcs", "0.16.1", "tools", "scriptcs.exe"));
             if (File.Exists(attemptFour))
                 return attemptFour;
 
