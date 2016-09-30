@@ -69,7 +69,7 @@ Task("Restore")
         Verbosity = DotNetCoreRestoreVerbosity.Verbose
     };
                 
-    DotNetCoreRestore("./source/*", settings);
+    DotNetCoreRestore("./", settings);
 });
 
 Task("__UpdateAssemblyVersionInformation")
