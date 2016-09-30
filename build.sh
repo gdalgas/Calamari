@@ -27,6 +27,8 @@ SCRIPT="build.cake"
 TARGET="Default"
 CONFIGURATION="Release"
 VERBOSITY="verbose"
+FRAMEWORK=""
+WHERE=""
 DRYRUN=
 SHOW_VERSION=false
 SCRIPT_ARGUMENTS=()
@@ -38,6 +40,8 @@ for i in "$@"; do
         -t|--target) TARGET="$2"; shift ;;
         -c|--configuration) CONFIGURATION="$2"; shift ;;
         -v|--verbosity) VERBOSITY="$2"; shift ;;
+        -f|--framework) FRAMEWORK="$2"; shift ;;
+        -w|--where) WHERE="$2"; shift ;;
         -d|--dryrun) DRYRUN="-dryrun" ;;
         --version) SHOW_VERSION=true ;;
         --) shift; SCRIPT_ARGUMENTS+=("$@"); break ;;
@@ -97,5 +101,5 @@ fi
 if $SHOW_VERSION; then
     exec mono "$CAKE_EXE" -version
 else
-    exec mono "$CAKE_EXE" $SCRIPT -verbosity=$VERBOSITY -configuration=$CONFIGURATION -target=$TARGET $DRYRUN "${SCRIPT_ARGUMENTS[@]}"
+    exec mono "$CAKE_EXE" $SCRIPT -verbosity=$VERBOSITY -configuration=$CONFIGURATION -target=$TARGET -where=$WHERE -framework=$FRAMEWORK $DRYRUN "${SCRIPT_ARGUMENTS[@]}"
 fi

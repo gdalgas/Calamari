@@ -9,6 +9,8 @@
 //////////////////////////////////////////////////////////////////////
 var target = Argument("target", "Default");
 var configuration = Argument("configuration", "Release");
+var testFilter = Argument("where", "");
+var framework = Argument("framework", "");
 
 ///////////////////////////////////////////////////////////////////////////////
 // GLOBAL VARIABLES
@@ -43,16 +45,16 @@ Teardown(context =>
 //////////////////////////////////////////////////////////////////////
 
 Task("__Default")
-    .IsDependentOn("__Clean")
-    .IsDependentOn("__Restore")
+    .IsDependentOn("Clean")
+    .IsDependentOn("Restore")
     .IsDependentOn("__UpdateAssemblyVersionInformation")
-    .IsDependentOn("__Build")
-    .IsDependentOn("__Test")
+    .IsDependentOn("Build")
+    .IsDependentOn("Test")
     .IsDependentOn("__UpdateProjectJsonVersion")
     .IsDependentOn("__Pack");
     //.IsDependentOn("__Publish");
 
-Task("__Clean")
+Task("Clean")
     .Does(() =>
 {
     CleanDirectory(artifactsDir);
@@ -60,7 +62,7 @@ Task("__Clean")
     CleanDirectories("./**/obj");
 });
 
-Task("__Restore")
+Task("Restore")
     .Does(() => DotNetCoreRestore());
 
 Task("__UpdateAssemblyVersionInformation")
@@ -77,27 +79,35 @@ Task("__UpdateAssemblyVersionInformation")
     Information("AssemblyInformationalVersion -> {0}", gitVersionInfo.InformationalVersion);
 });
 
-Task("__Build")
+Task("Build")
     .Does(() =>
 {
-    DotNetCoreBuild("**/project.json", new DotNetCoreBuildSettings
+    var settings =  new DotNetCoreBuildSettings
     {
         Configuration = configuration
-    });
+    };
+
+    if(!string.IsNullOrEmpty(framework))
+        settings.Framework = framework;      
+
+    DotNetCoreBuild("**/project.json", settings);
 });
 
-Task("__Test")
+Task("Test")
     .Does(() =>
 {
-    GetFiles("**/*Tests/project.json")
-        .ToList()
-        .ForEach(testProjectFile => 
-        {
-            DotNetCoreTest(testProjectFile.ToString(), new DotNetCoreTestSettings
-            {
-                Configuration = configuration
-            });
-        });
+    var settings =  new DotNetCoreTestSettings
+    {
+        Configuration = configuration
+    };
+
+    if(string.IsNullOrEmpty(framework) || framework != "netcoreapp1.0")
+        DotNetCoreTest("source/Calamari.Azure.Tests/project.json", settings);
+
+    if(!string.IsNullOrEmpty(framework))
+        settings.Framework = framework;   
+
+    DotNetCoreTest("source/Calamari.Tests/project.json", settings);
 });
 
 Task("__UpdateProjectJsonVersion")
