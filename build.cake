@@ -63,7 +63,14 @@ Task("Clean")
 });
 
 Task("Restore")
-    .Does(() => DotNetCoreRestore());
+    .Does(() => {
+    var settings = new DotNetCoreRestoreSettings
+    {
+        Verbosity = Verbose
+    };
+                
+    DotNetCoreRestore("./source/*", settings);
+});
 
 Task("__UpdateAssemblyVersionInformation")
     .WithCriteria(isContinuousIntegrationBuild)
