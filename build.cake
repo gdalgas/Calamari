@@ -102,7 +102,14 @@ Task("Test")
     };
 
     if(!string.IsNullOrEmpty(framework))
-        settings.Framework = framework;   
+        settings.Framework = framework;  
+
+    if(!string.IsNullOrEmpty(testFilter))
+        settings.ArgumentCustomization = f => {
+            f.Append("-where");
+            f.AppendQuoted(testFilter);
+            return f;
+        };
 
     if(string.IsNullOrEmpty(framework) || framework != "netcoreapp1.0")
         DotNetCoreTest("source/Calamari.Azure.Tests/project.json", settings);
