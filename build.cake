@@ -66,7 +66,7 @@ Task("Restore")
     .Does(() => {
     var settings = new DotNetCoreRestoreSettings
     {
-        Verbosity = Verbose
+        Verbosity = DotNetCoreRestoreVerbosity.Verbose
     };
                 
     DotNetCoreRestore("./source/*", settings);
