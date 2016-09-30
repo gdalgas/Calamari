@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////////
 // TOOLS
 //////////////////////////////////////////////////////////////////////
-#tool "nuget:?package=GitVersion.CommandLine&prerelease"
+#tool "nuget:?package=GitVersion.CommandLine&version=4.0.0-beta0007"
 #addin "MagicChunks"
 
 //////////////////////////////////////////////////////////////////////
@@ -101,13 +101,13 @@ Task("Test")
         Configuration = configuration
     };
 
-    if(string.IsNullOrEmpty(framework) || framework != "netcoreapp1.0")
-        DotNetCoreTest("source/Calamari.Azure.Tests/project.json", settings);
-
     if(!string.IsNullOrEmpty(framework))
         settings.Framework = framework;   
 
-    DotNetCoreTest("source/Calamari.Tests/project.json", settings);
+    if(string.IsNullOrEmpty(framework) || framework != "netcoreapp1.0")
+        DotNetCoreTest("source/Calamari.Azure.Tests/project.json", settings);
+
+     DotNetCoreTest("source/Calamari.Tests/project.json", settings);
 });
 
 Task("__UpdateProjectJsonVersion")
