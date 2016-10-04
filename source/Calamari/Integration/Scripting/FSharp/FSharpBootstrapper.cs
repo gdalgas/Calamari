@@ -27,7 +27,7 @@ namespace Calamari.Integration.Scripting.FSharp
 
             var myPath = typeof(FSharpEngine).GetTypeInfo().Assembly.Location;
             var parent = Path.GetDirectoryName(myPath);
-            var executable = Path.GetFullPath(Path.Combine(parent, "Tools", "FSharp.Compiler.Tools", "fsi.exe"));
+            var executable = Path.GetFullPath(Path.Combine(parent, "FSharp", "fsi.exe"));
 
             if (File.Exists(executable))
                 return executable;

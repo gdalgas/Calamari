@@ -27,7 +27,7 @@ namespace Calamari.Integration.Scripting.ScriptCS
 
             var myPath = typeof(ScriptCSScriptEngine).GetTypeInfo().Assembly.Location;
             var parent = Path.GetDirectoryName(myPath);
-            var executable = Path.GetFullPath(Path.Combine(parent, "Tools", "ScriptCS", "scriptcs.exe"));
+            var executable = Path.GetFullPath(Path.Combine(parent, "ScriptCS", "scriptcs.exe"));
 
             if (File.Exists(executable))
                 return executable;
