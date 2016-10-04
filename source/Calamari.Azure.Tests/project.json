@@ -45,7 +45,12 @@
     "copyToOutput": {
       "include": [
         "ResourceGroups/*.json"
-      ]
+      ],
+      "mappings": {
+        "OctoDiff/": "../Tools/OctoDiff**/",
+        "FSharp/": "../Tools/FSharp.Compiler.Tools**/",
+        "ScriptCS/": "../Tools/ScriptCS**/"
+      }
     }
   }
 }

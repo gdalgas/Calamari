@@ -60,6 +60,13 @@
         "Scripts\\DeployAzureCloudService.ps1",
         "Scripts\\SwapAzureCloudServiceDeployment.ps1"
       ]
+    },
+    "copyToOutput": {
+      "mappings": {
+        "OctoDiff/": "../Tools/OctoDiff**/",
+        "FSharp/": "../Tools/FSharp.Compiler.Tools**/",
+        "ScriptCS/": "../Tools/ScriptCS**/"
+      }
     }
   }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Calamari.Commands.Support;
 using Calamari.Integration.Processes;
@@ -26,25 +27,12 @@ namespace Calamari.Integration.Scripting.ScriptCS
 
             var myPath = typeof(ScriptCSScriptEngine).GetTypeInfo().Assembly.Location;
             var parent = Path.GetDirectoryName(myPath);
+            var executable = Path.GetFullPath(Path.Combine(parent, "Tools", "ScriptCS", "scriptcs.exe"));
 
-            var attemptOne = Path.GetFullPath(Path.Combine(parent, "ScriptCS", "scriptcs.exe"));
-            if (File.Exists(attemptOne))
-                return attemptOne;
+            if (File.Exists(executable))
+                return executable;
 
-            var attemptTwo = Path.GetFullPath(Path.Combine("..", "..", "packages", "scriptcs.0.16.1", "tools", "scriptcs.exe"));
-            if (File.Exists(attemptTwo))
-                return attemptTwo;
-
-            var attemptThree = Path.GetFullPath(Path.Combine("..", "packages", "scriptcs.0.16.1", "tools", "scriptcs.exe"));
-            if (File.Exists(attemptThree))
-                return attemptThree;
-
-            var attemptFour = Path.GetFullPath(
-                Path.Combine(CrossPlatform.GetHomeFolder(), ".nuget", "packages", "scriptcs", "0.16.1", "tools", "scriptcs.exe"));
-            if (File.Exists(attemptFour))
-                return attemptFour;
-
-            throw new CommandException(string.Format("ScriptCS.exe was not found at either '{0}' or '{1}' or '{2}' or {3}", attemptOne, attemptTwo, attemptThree, attemptFour));
+            throw new CommandException(string.Format("ScriptCS.exe was not found at '{0}'", executable));
         }
 
         public static string FormatCommandArguments(string bootstrapFile, string scriptParameters)

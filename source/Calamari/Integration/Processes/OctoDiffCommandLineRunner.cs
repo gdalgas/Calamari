@@ -26,15 +26,11 @@ namespace Calamari.Integration.Processes
         public static string FindOctoDiffExecutable()
         {
             var basePath = Path.GetDirectoryName(typeof(ApplyDeltaCommand).GetTypeInfo().Assembly.Location);
-            var attemptOne = Path.GetFullPath(Path.Combine(basePath, "Octodiff.exe"));
-            if (File.Exists(attemptOne))
-                return attemptOne;
+            var executable = Path.GetFullPath(Path.Combine(basePath, "OctoDiff", "Octodiff.exe"));
+            if (File.Exists(executable))
+                return executable;
 
-            var attemptTwo = Path.GetFullPath(Path.Combine(basePath, "tools", "Octodiff", "Octodiff.exe"));
-            if (File.Exists(attemptTwo))
-                return attemptTwo;
-
-            throw new CommandException(string.Format("Unable to find Octodiff.exe at {0} or {1}.", attemptOne, attemptTwo));
+            throw new CommandException(string.Format("Unable to find Octodiff.exe at {0}.", executable));
         }
     }
 }

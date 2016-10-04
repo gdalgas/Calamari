@@ -92,8 +92,15 @@
         "Fixtures/PowerShell/Packages/**",
         "Fixtures/PowerShell/Scripts/**",
         "Fixtures/ScriptCS/Scripts/**",
-        "Fixtures/Substitutions/Samples/**"
-      ]
+        "Fixtures/Substitutions/Samples/**",
+        "../Tools/FSharp.Compiler.Tools",
+        "../Tools/ScriptCS"
+      ],
+      "mappings": {
+        "OctoDiff/": "../Tools/OctoDiff**/",
+        "FSharp/": "../Tools/FSharp.Compiler.Tools**/",
+        "ScriptCS/": "../Tools/ScriptCS**/"
+      }
     }
   },
   "runtimes": {
