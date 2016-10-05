@@ -158,6 +158,8 @@
     <Compile Include="Fixtures\Deployment\DeployPackageFixture.cs" />
     <Compile Include="Fixtures\Deployment\DeployWebPackageToIISFixture.cs" />
     <Compile Include="Fixtures\Deployment\DeployWindowsServiceFixture.cs" />
+    <Compile Include="Fixtures\RequiresMinimumMonoVersionAttribute.cs" />
+    <Compile Include="Fixtures\RequiresMonoVersion423OrAboveAttribute.cs" />
     <Compile Include="Helpers\InMemoryLog.cs" />
     <Compile Include="Fixtures\FSharp\FSharpFixture.cs" />
     <Compile Include="Helpers\CaptureCommandOutputExtensions.cs" />
