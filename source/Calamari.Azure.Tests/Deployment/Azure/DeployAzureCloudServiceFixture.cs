@@ -69,8 +69,7 @@ namespace Calamari.Azure.Tests.Deployment.Azure
         [Test]
         public void ShouldPerformVariableSubstitution()
         {
-           result.AssertOutput(
-               new Regex(@"Performing variable substitution on '.*ServiceDefinition\\ServiceDefinition\.csdef'")); 
+           result.AssertOutputMatches(@"Performing variable substitution on '.*ServiceDefinition\\ServiceDefinition\.csdef'"); 
         }
 
         [Test]

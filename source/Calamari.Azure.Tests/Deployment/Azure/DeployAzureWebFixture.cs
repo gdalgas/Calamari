@@ -58,8 +58,7 @@ namespace Calamari.Azure.Tests.Deployment.Azure
         [Test]
         public void ShouldPerformVariableSubstitution()
         {
-           result.AssertOutput(
-               new Regex(@"Performing variable substitution on '.*web\.config'")); 
+           result.AssertOutputMatches(@"Performing variable substitution on '.*web\.config'");
         }
 
         CalamariResult DeployPackage(string packageName)
