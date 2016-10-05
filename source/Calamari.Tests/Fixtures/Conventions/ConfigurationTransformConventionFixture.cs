@@ -52,7 +52,7 @@ namespace Calamari.Tests.Fixtures.Conventions
 
             CreateConvention().Install(deployment);
 
-            AssertTransformRun("bar.config", "bar.Release.config");
+            AssertTransformRun("bar.config", "bar.release.config");
         }
 
         [Test]
@@ -62,7 +62,7 @@ namespace Calamari.Tests.Fixtures.Conventions
 
             CreateConvention().Install(deployment);
 
-            AssertTransformNotRun("bar.config", "bar.Release.config");
+            AssertTransformNotRun("bar.config", "bar.release.config");
         }
 
         [Test]
@@ -75,7 +75,7 @@ namespace Calamari.Tests.Fixtures.Conventions
 
             CreateConvention().Install(deployment);
 
-            AssertTransformRun("bar.config", "bar.Production.config");
+            AssertTransformRun("bar.config", "bar.production.config");
         }
 
         [Test]
